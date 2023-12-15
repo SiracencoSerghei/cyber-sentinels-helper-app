@@ -1,7 +1,8 @@
 from datetime import datetime
-from className import Name
-from classPhone import Phone
-from classBirthday import Birthday
+
+from Name import Name
+from Phone import Phone
+from Birthday import Birthday
 
 
 class Record:          
