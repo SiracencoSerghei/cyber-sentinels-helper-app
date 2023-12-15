@@ -1,4 +1,6 @@
 from Field import Field
-
+# Name: Class for name saving in contakts
 class Name:
-    pass
+    def __str__(self):
+        return super().__str__()
+    
