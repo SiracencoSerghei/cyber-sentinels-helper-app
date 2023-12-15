@@ -1,5 +1,4 @@
-"""скрипт обробки файлів"""
-
+"
 from pathlib import Path
 import shutil
 from normalize import normalize
@@ -23,17 +22,23 @@ def process_file(file_path: Path, target_folder: Path) -> None:
     if category is None:
         category = 'unknown'
 
-    # Працюем з архівами, витягуючи їх вміст
-    if category == 'archives':
-        # file_path.stem, щоб отримати цю основну частину імені файлу
-        archive_folder_name = normalize(file_path.stem)
-        archive_folder = target_folder / 'archives' / archive_folder_name
-        # Розпаковуємо архів
-        shutil.unpack_archive(str(file_path), str(archive_folder))
-        # Переміщуємо сам архів у папку з розпакованим вмістом
-        shutil.move(str(file_path), str(archive_folder / file_path.name))
-        return
-    new_file_name = normalize(file_path.stem) + file_path.suffix
-    target_path = target_folder / category / new_file_name
-    target_path.parent.mkdir(parents=True, exist_ok=True)
-    shutil.move(str(file_path), str(target_path))
+    
+    try:
+        # Working with archives, extracting their content
+        if category == 'archives':
+            archive_folder_name = normalize(file_path.stem)
+            archive_folder = target_folder / 'archives' / archive_folder_name
+            # unpack archive file in archive folder
+            shutil.unpack_archive(str(file_path), str(archive_folder))
+            # move archive file to unpack folder
+            shutil.move(str(file_path), str(archive_folder / file_path.name))
+    except shutil.ReadError as e:
+        print(f"Error processing archive at '{file_path}': {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred while processing '{file_path}': {e}")
+    else:
+        new_file_name = normalize(file_path.stem) + file_path.suffix
+        target_path = target_folder / category / new_file_name
+        target_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.move(str(file_path), str(target_path))
+        
