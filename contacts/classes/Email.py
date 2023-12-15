@@ -6,7 +6,7 @@ class Email(Field):
     @classmethod
     def is_valid(cls, value):
         try:
-            if re.match('^(\w|\.|\_|\-)+[@](\w|\_|\-|\.)+[.]\w{2,3}$', value) or value == '':
+            if re.match(r'[a-zA-Z][\w.]+@\w{2,}\.\w{2,3}', value) or value == '':
                 return True
         except ValueError:
             return False
