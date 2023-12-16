@@ -1,5 +1,5 @@
 import re
-from Field import  Field
+from contacts.classes.Field import Field
 R = "\033[91m"
 RES = "\033[0m"
 class Email(Field):
@@ -14,7 +14,7 @@ class Email(Field):
         if not Email.is_valid(value):
             print(f"{R}The email don't added to record{RES}")
             print(f'{R}Incorrect email! Please provide correct email.{RES}')
-            raise ValueError(f"{R}Not valid birthday date{RES}")
+            raise ValueError(f"{R}Not valid email{RES}")
         super().__init__(value)
     def __get__(self):
         return self.value
