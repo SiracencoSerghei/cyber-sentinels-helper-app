@@ -9,8 +9,6 @@ class Fields:
         return str(self.value)
 
 
-
-
 class ToDoRecord:
     def __init__(self, task, date, status=None):
         self.task = task
