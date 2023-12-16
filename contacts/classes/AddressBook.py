@@ -27,6 +27,50 @@ class AddressBook(UserDict):
             record = Record(record)
         self.data[record.name.value] = record
 
+    def edit_contact(self, search_param):
+        """Edit a contact in the address book based on a search parameter.
+
+        Args:
+            search_param (str): The search parameter to find the contact to edit.
+
+        Returns:
+            None
+        """
+        if len(search_param) < 3:
+            print("Sorry, the search parameter must be at least 3 characters.")
+            return
+
+        matching_records = []
+        for record in self.values():
+            if search_param.lower() in record.name.value.lower() or search_param in record.get_all_phones():
+                matching_records.append(record)
+
+        if not matching_records:
+            print("No records found for the given parameter.")
+            return
+
+        print("Matching records:")
+        for i, record in enumerate(matching_records, start=1):
+            print(f"{i}. {record.name.value}")
+
+        try:
+            choice = int(input("Enter the number of the contact to edit: "))
+            if 1 <= choice <= len(matching_records):
+                selected_record = matching_records[choice - 1]
+                field_name = input("Enter the field to edit (name, birthday, email, status, note, phone): ")
+
+                # Check if the entered field name is valid
+                if field_name in ["name", "birthday", "email", "status", "note", "phone"]:
+                    new_value = input("Enter the new value: ")
+                    selected_record.add_field(field_name, new_value)
+                    print(f"Contact '{selected_record.name.value}' updated successfully.")
+                else:
+                    print("Invalid field name. Please enter a valid field name.")
+            else:
+                print("Invalid choice. Please enter a valid number.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
     def find_name(self, name):
         """Find a record by name.
 

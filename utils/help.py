@@ -55,7 +55,7 @@ def help():
     ]
 
     for i, (command, description) in enumerate(rows):
-        style = f"{BLUE}" if i % 2 == 0 else f"{GREEN}"
+        style = f"{'#1D95C4'}" if i % 2 == 0 else f"{GREEN}"
         table.add_row(command, description, style=style)
 
     # Print the exit command in red

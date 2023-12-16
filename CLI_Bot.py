@@ -6,10 +6,13 @@ from prompt_toolkit.history import  FileHistory
 from prompt_toolkit.completion import WordCompleter
 from decorators.input_errors import input_errors
 from utils.sanitize_phone_nr import sanitize_phone_number
+from rich.console import Console
+from rich.table import Table
 from utils.help import help
 from utils.address_book_functions import add_contact, greeting, good_bye, load_address_book
 # I'm applying the decorator directly, overwriting the function
 sanitize_phone_number = input_errors(sanitize_phone_number)
+
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -65,11 +68,16 @@ class Bot:
     def showall(self, chunk_size=1):
         """Display all contacts in the address book.
 
-            Returns:
-                None
-            """
-        print(f"{BLUE}{'NAME':^15}{RESET} | {BLUE}{'PHONES':^15}{RESET} | {BLUE}{'BIRTHDAY':^15}{RESET}")
-        print("_" * 48)
+        Returns:
+            None
+        """
+        console = Console()
+
+        table = Table(title="Address Book")
+        table.add_column("Name", style="blue", justify="center")
+        table.add_column("Phones", style="blue", justify="center")
+        table.add_column("Birthday", style="blue", justify="center")
+        table.add_column("Email", style="blue", justify="center")
 
         records = list(self.book.values())
         num_records = len(records)
@@ -80,12 +88,19 @@ class Bot:
                 name = record.name.value
                 phones = "; ".join([str(phone) for phone in record.phones])
                 birthday = str(record.birthday) if record.birthday else "N/A"
-                print(f"{BLUE}{name:<15}{RESET} | {BLUE}{phones:^15}{RESET} | {BLUE}{birthday:^15}{RESET}")
+                email = record.email.value if record.email else "N/A"
+
+                table.add_row(name, phones, birthday, email)
+
             i += chunk_size
 
             if i < num_records:
                 # Wait for Enter keypress to continue
+                console.print(table)
                 input(f"{PINK}Press Enter to show the next chunk...{RESET}")
+
+        console.print(table)
+
 
     @input_errors
     def get_phone(self, name):
@@ -173,7 +188,7 @@ class Bot:
             print(f"{YELLOW}Creating a new address book.{RESET}")
             book = AddressBook()  # Creating a new instance
         while True:
-            print("If don't now the commands, enter 'help' please")
+            print(f"{YELLOW}If don't now the commands, enter 'help' please{RESET}")
             user_input = self.session.prompt("... ")
             if user_input == "":
                 print(f"{RED}Empty input !!!{RESET}")
@@ -199,7 +214,8 @@ class Bot:
                         try:
                             edit_type = input_data[1].lower()
                             if edit_type == 'contact':
-                                edit_contact()
+                                search_param = input("Enter the search parameter: ")
+                                book.edit_contact(search_param)
                             elif edit_type == 'note':
                                 edit_note()
                             elif edit_type == 'todolist':
@@ -207,7 +223,8 @@ class Bot:
                             else:
                                 print(f"{RED}Invalid edit type. Supported types: contact, note, todolist{RESET}")
                         except IndexError:
-                            print(f"{RED}You need to provide an edit type after 'edit'.{RESET}")
+                            print(f"{RED}You need to provide an edit type after 'edit'.{RESET}\n"
+                                  f"{GREEN}for example: edit contact or note or todo{RESET}")
 
                     case "show":
                         try:

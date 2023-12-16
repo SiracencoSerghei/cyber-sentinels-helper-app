@@ -23,7 +23,7 @@ def greeting():
         str: A greeting message.
     """
     return ("Hallo! You can open the Address Book, Notes, ToDo List?\n"
-            "OR Play your preferite game Bandera's_Goose")
+            "OR Play your favorite game Bandera's_Goose")
 
 def good_bye():
         """Bid farewell to the user.
