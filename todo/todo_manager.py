@@ -18,8 +18,8 @@ class ToDoRecord:
 
 # adding tags while creating ToDoRecord class instance
     def add_tags(self, tag):
-        if not isinstance(tag, Fields):
-            tag = Fields(tag)
+        if not isinstance(tag, Field):
+            tag = Field(tag)
         self.tags.append(tag)
 
 # adding tags to existing task
