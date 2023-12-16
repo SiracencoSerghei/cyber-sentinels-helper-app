@@ -82,11 +82,31 @@ class ToDoRecord:
 
     # searcing by date
     def search_by_date(self, date):
-        pass
+        searching_tasks = []
+        for task in self.tasks:
+            if task['date'] in date:
+                searching_tasks.append(task)
+
+        self._search_results(searching_tasks, "Date", date)
+
+        # It can also work by this
+        #searching_tasks = [task for task in self.tasks if task['date'] == date]
+        #self._search_results(searching_tasks, 'Date', date)
+
 
     # searcing by status
     def search_by_status(self, status):
-        pass
+        searching_tasks = []
+        for task in self.tasks:
+            if task['status'].lower() in status.lower():
+                searching_tasks.append(task)
+
+        self._search_results(searching_tasks, "Status", status)
+
+        #It can also work by this
+        #esarching_tasks = [task for task in self.tasks if task['status'].lower() == status.lower()]
+        #self._search_results(searching_tasks, 'Status', status)
+        
 
 
 class ToDoBook(UserDict):
