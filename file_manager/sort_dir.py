@@ -4,20 +4,20 @@ from pathlib import Path
 from process_directory import process_directory
 
 def sort_folder(folder: str) -> None:
-    """ Головна функція обробки папки
+    """ The main function of folders processing.
 
     Args:
-        folder (str): передаем шлях до папки
+        folder (str): transfer the path to folders
     """
     folder_path = Path(folder)
-    # Отримуємо батьківську папку, де буде створена папка "sorted"
+    # Get the parent folder where the folder will be created "sorted"
     # parent_folder = folder_path.parent
     # sorted_folder_path = parent_folder / 'sorted'
     sorted_folder_path = folder_path
-    # Переконаемось, що папка "sorted" існує або створім її
-    #Параметр parents в методі mkdir вказує, що програма повинна
-    # автоматично створити всі батьківські директорії, якщо вони не існують.
-    # Параметр exist_ok дозволяє не генерувати помилку, якщо директорія вже існує.
+    # Make sure that the "sorted" folder exists or create it.
+    #The parents parameter in the mkdir method indicates that the program should automatically create all parent directories 
+    #if they do not exist.
+    # Parameter exist_ok allows not to generate an error if the directory already exists.
     # sorted_folder_path.mkdir(parents=True, exist_ok=True)
     process_directory(folder_path, sorted_folder_path)
 

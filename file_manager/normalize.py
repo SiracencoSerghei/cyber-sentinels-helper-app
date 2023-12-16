@@ -2,7 +2,7 @@
 
 def normalize(input_str: str) -> str:
     """ function change cyrillic to latin chars"""
-    # Створюємо словник для транслітерації кирилічних символів на латиницю
+    #Creating a dictionary for transliterating Cyrillic characters into Latin
     transliteration_dict = {
         'а': 'a', 'б': 'b', 'в': 'v', 'г': 'h',
         'д': 'd', 'е': 'e', 'є': 'ie', 'ж': 'zh', 'з': 'z', 'и': 'y',
@@ -14,14 +14,14 @@ def normalize(input_str: str) -> str:
     }
     result_str = ''
     for char in input_str:
-        # Перевіряємо, чи є символ у словнику транслітерації
+        #Check whether the symbol is in the transliteration dictionary
         if char.lower() in transliteration_dict:
-            # Замінюємо на відповідне значення зі словника
+            # Replace with the corresponding value from the dictionary
             if char.isupper():
                 result_str += transliteration_dict[char.lower()].capitalize()
             else:
                 result_str += transliteration_dict[char.lower()]
-        # Якщо символ не є літерою кирилічного або латинського алфавіту, замінюємо на "_"
+        # If the symbol is not a letter of the Cyrillic or Latin alphabet, replace it with "_"
         elif not char.isalnum():
             result_str += '_'
         else:

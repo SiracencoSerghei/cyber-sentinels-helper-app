@@ -10,23 +10,22 @@ from contacts.classes.Note import Note
 
 
 class Record:
-    """Клас Record представляє запис контакту в телефонній книзі.
+    """Class Record is presenting record of contact to phone book.
 
             Attributes:
-                self.name (Name): Ім'я контакту.
-                self.phones (list of Phone): Список телефонних номерів контакту.
-                self.birthday (Birthday): Дата народження контакту.
+                self.name (Name): Contact name.
+                self.phones (list of Phone): List of contacts phone numbers.
+                self.birthday (Birthday): Date of contacts birthday.
 
             Methods:
-                days_to_birthday(): Повертає кількість днів до наступного дня народження контакту,
-                якщо вказана дата народження.
-                add_birthday(value): Додає дату народження контакту.
-                edit_birthday(new_value): Змінює дату народження контакту.
-                add_phone(phone): Додає телефонний номер контакту.
-                remove_phone(phone): Видаляє телефонний номер контакту.
-                edit_phone(old_phone, new_phone): Редагує існуючий телефонний номер контакту.
-                find_phone(phone): Знаходить телефонний номер контакту за значенням номера.
-                get_all_phones(): Повертає список всіх телефонних номерів контакту.
+                days_to_birthday(): Returns the number of days until the contact's next birthday, if that given.
+                add_birthday(value): Adding contact's date of birthday.
+                edit_birthday(new_value): Changing contact's date of birthday.
+                add_phone(phone): Adding contact's phone number.
+                remove_phone(phone): Deleting  the contact's phone number.
+                edit_phone(old_phone, new_phone): Editing an existing contact phone number.
+                find_phone(phone): Finds a contact's phone number by number value.
+                get_all_phones(): Returns a list of all phone numbers of a contact.
             """
 
     def __init__(self, name, birthday=None, email=None, address = None, status=None, note=None):
@@ -39,10 +38,10 @@ class Record:
         self.note = Note(note) if note else None
 
     def days_to_birthday(self):
-        """Повертає кількість днів до наступного дня народження контакту, якщо вказана дата народження.
+        """Returns the number of days until the contact's next birthday, if date of births is given
 
                 Returns:
-                    int or None: Кількість днів до наступного дня народження, або None, якщо дата народження не вказана.
+                    int or None: The number of days until the next birthday, or None, if the date of birth is not given.
                 """
         if self.birthday:
             today = datetime.now()
@@ -121,20 +120,20 @@ class Record:
     #         raise ValueError(f"Invalid or unsupported field name: {field_name}")
 
     def add_phone(self, phone):
-        """Додає телефонний номер контакту.
+        """Adding contact's phone number.
 
         Args:
-            phone (str): Телефонний номер для додавання.
+            phone (str): The phone number to adding.
         """
         if not isinstance(phone, Phone):
             phone = Phone(phone)
         self.phones.append(phone)
 
     def remove_phone(self, phone):
-        """Видаляє телефонний номер контакту.
+        """Deleting contact's phone number.
 
         Args:
-            phone (str): Телефонний номер для видалення.
+            phone (str): The phone number to deleting.
         """
         if phone in [p.value for p in self.phones]:
             self.phones = [p for p in self.phones if p.value != phone]
@@ -142,23 +141,23 @@ class Record:
 
 
     def find_phone(self, phone):
-        """Знаходить телефонний номер контакту за значенням номера.
+        """Finds a contact's phone number by number value.
 
         Args:
-            phone (str): Телефонний номер для пошуку.
+            phone (str): The phone number for searching.
 
         Returns:
-            Phone or None: Знайдений телефоний номер або None, якщо не знайдено.
+            Phone or None: The phone number found, or None if not found.
         """
         for p in self.phones:
             if p.value == phone:
                 return p
 
     def get_all_phones(self):
-        """Повертає список всіх телефонних номерів контакту.
+        """Returns a list of all phone numbers of a contact.
 
         Returns:
-            list of str: Список телефонних номерів контакту.
+            list of str: A list of all phone numbers of a contact.
         """
         result = [p.value for p in self.phones]
         return result

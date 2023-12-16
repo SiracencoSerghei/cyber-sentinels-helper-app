@@ -1,22 +1,22 @@
-"""Обробка каталогу та його підкаталогів."""
+"""Processing of the directory and its subdirectories."""
 from pathlib import Path
 from process_file import process_file
 
 def process_directory(directory_path: Path, sorted_folder_path: Path) -> None:
-    """Рекурсивна обробка каталогу та його підкаталогів."""
-    # Створюємо список для зберігання папок та файлів для подальшого сортування
+    """Recursive processing of a directory and its subdirectories."""
+    #Create a list for storing folders and files for further sorting
     folders_to_sort = []
     for item in directory_path.iterdir():
-        # якщо файл, обробляємо окремою функціею
+        # If file, processed by a separate function
         if item.is_file():
             process_file(item, sorted_folder_path)
         elif item.is_dir():
-            # Додаємо папку до списку, щоб обробити її пізніше
+            # Adding a folder to the list, for processing later.
             folders_to_sort.append(item)
-    # Обробляємо папки за зворотнім порядком, оскільки ми вище зберегли їх у порядку вкладеності
+    #Sorting out the folders in reverse order, the remaining ones have been saved in the order of deposits
     for folder in reversed(folders_to_sort):
         process_directory(folder, sorted_folder_path)
-    # Видаляємо порожні папки
+    #Deletion of empty folders
     for item in directory_path.iterdir():
         if item.is_dir() and not list(item.iterdir()):
             item.rmdir()
