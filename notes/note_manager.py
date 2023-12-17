@@ -12,14 +12,13 @@ class NotesRecord:
                 add_notes: adding of notes to Notes
                 delete_notes: deleating of notes
             """
-    def __init__(self, notes, filename):
-        self.notes = notes
+    def __init__(self, titel, filename):
+        self.titel = titel
         self.file = filename
+        self.notes = []
 
-        #self.notes = []
-
-    def add_notes(self, note, tags=None): # tags=None if we need it(if not, delit it)
-        self.tasks.append({'note_name': note,'tags': tags})
+    def add_notes(self, note): 
+        self.notes.append(note)
         print(f'Enjoy, you had added "{note}" to your notes.')
 
     def delete_notes(self, note_to_delete):
@@ -38,7 +37,7 @@ class NotesRecord:
 
 class Notes(UserDict):
     def add_note_record(self, note_record: NotesRecord):
-        self.data[note_record.notes] = note_record   
+        self.data[note_record.title] = note_record   
         return self.data
     
 
