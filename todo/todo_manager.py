@@ -2,6 +2,7 @@ from collections import UserDict
 from datetime import datetime
 import json
 from contacts.classes.Field import Field
+from contacts.classes.Birthday import Birthday
 
 
 class ToDoRecord:
@@ -106,13 +107,53 @@ class ToDoRecord:
         #It can also work by this
         #esarching_tasks = [task for task in self.tasks if task['status'].lower() == status.lower()]
         #self._search_results(searching_tasks, 'Status', status)
+
+# completely change the task
+    def change_task(self, new_task):
+            self.task = new_task
+
+# partially modify task
+    def edit_task(self, wrong_part, new_part):
+        part_of_task = self.task.find(wrong_part)
+        if part_of_task == -1:
+            print(f'Task has no letters {wrong_part}. Please try again.')
+        else:
+            new_task = self.task.replace(wrong_part, new_part)
+            self.task = new_task
+
+# changing task date
+    def edit_date(self, new_date):
+        if not isinstance(new_date, Birthday):
+            new_date = Birthday(new_date)
+        self.date = new_date
+
+# changing task status
+    def edit_status(self, new_status):
+        self.status = new_status
         
 
 
 class ToDoBook(UserDict):
     def add_to_do_record(self, record: ToDoRecord):
-        self.data[record.task.value] = record
+        self.data[record.task.value] = record   
         return self.data
+    
+    # I think "self.data[record.task] = record" will be correct
+    
+    def search_task(self):
+        search_info = input().lower()
+        for task in self.data.values():
+            search_by_task = task.task.lower().find(search_info)
+            search_by_date = str(task.date).find(search_info)
+            search_by_status = task.status.lower().find(search_info)
+            search_by_tags = str([tag.value.lower() for tag in task.tags]).find(search_info)
+            if search_by_task > -1 or search_by_date > -1 or search_by_status > -1 or search_by_tags > -1:
+                print(task.task) 
+
+    #we can change return info
+
+    def delete(self, name):
+        pass
 
 
 class ToDoList_Save(ToDoRecord):
