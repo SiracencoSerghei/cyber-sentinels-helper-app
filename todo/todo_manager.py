@@ -6,12 +6,12 @@ from contacts.classes.Birthday import Birthday
 
 
 class ToDoRecord:
-    def __init__(self, task, date, status=None):
-        self.task = task
-        self.date = date
+    def __init__(self, id, begin, end, status=None):
+        self.id = id
+        self.begin = begin
+        self.end = end
         self.status = status # ???
         self.tags = []
-        self.tasks = []
         
     def add_task(self, task, date, status, tags):
         self.tasks.append({'task': task, 'date': date, 'status': status, 'tags': tags})
@@ -134,6 +134,7 @@ class ToDoRecord:
 
 
 class ToDoBook(UserDict):
+
     def add_to_do_record(self, record: ToDoRecord):
         self.data[record.task.value] = record   
         return self.data
@@ -144,7 +145,8 @@ class ToDoBook(UserDict):
         search_info = input().lower()
         for task in self.data.values():
             search_by_task = task.task.lower().find(search_info)
-            search_by_date = str(task.date).find(search_info)
+            search_by_date1 = str(task.begin).find(search_info)
+            search_by_date2 = str(task.end).find(search_info)
             search_by_status = task.status.lower().find(search_info)
             search_by_tags = str([tag.value.lower() for tag in task.tags]).find(search_info)
             if search_by_task > -1 or search_by_date > -1 or search_by_status > -1 or search_by_tags > -1:
@@ -161,4 +163,17 @@ class ToDoList_Save(ToDoRecord):
         with open(self.file, "w ", encoding="utf-8") as f:
             json.dump((self.date, self.task), f)
 
-        
+
+if __name__ == '__main__':
+    pass
+
+todo1 = {
+      "id": "Jane Smith",
+      "tags": [
+        "9876543210"
+      ],
+      "begin": "1985-09-20",
+      "end": "1985-09-20",
+      "status": "done"
+    }
+
