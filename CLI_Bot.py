@@ -1,6 +1,5 @@
 from contacts.classes.Record import Record
 from contacts.classes.AddressBook import AddressBook
-from prompt_toolkit import prompt
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import  FileHistory
 from prompt_toolkit.completion import WordCompleter
@@ -8,6 +7,7 @@ from decorators.input_errors import input_errors
 from utils.sanitize_phone_nr import sanitize_phone_number
 from rich.console import Console
 from rich.table import Table
+from file_manager.sort_dir import sort_folder
 from utils.help import help
 from utils.address_book_functions import add_contact, greeting, good_bye, load_address_book
 # I'm applying the decorator directly, overwriting the function
@@ -28,7 +28,7 @@ class Bot:
     def __init__(self):
         self.__known_commands = (
             "help", "add", "edit", "find", "delete",
-            "show", "hello", "days-to-birthday")
+            "show", "hello", "days-to-birthday", "sort")
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
         self.session = PromptSession(
@@ -217,9 +217,11 @@ class Bot:
                                 search_param = input("Enter the search parameter: ")
                                 book.edit_contact(search_param)
                             elif edit_type == 'note':
-                                edit_note()
+                                # edit_note()
+                                pass
                             elif edit_type == 'todolist':
-                                edit_todolist()
+                                # edit_todolist()
+                                pass
                             else:
                                 print(f"{RED}Invalid edit type. Supported types: contact, note, todolist{RESET}")
                         except IndexError:
@@ -228,6 +230,7 @@ class Bot:
 
                     case "show":
                         try:
+                            self.book = AddressBook.load_from_file('outputs/address_book.json')
                             self.showall(int(input_data[1]))
                         except IndexError:
                             print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
@@ -248,6 +251,19 @@ class Bot:
                             print(f"{GREEN}Matching records:\n{result}{RESET}")
                         except IndexError:
                             print(f"{RED}You have to provide a search parameter after 'find'.{RESET}")
+                    case "sort":
+                        while True:
+                            search_param = input("Enter the sort folder (or leave blank to cancel): ")
+                            if not search_param:
+                                print("Sorting canceled.")
+                                break
+
+                            try:
+                                sort_folder(search_param)
+                                print(f"{GREEN}Folder was sorted{RESET}")
+                                break  # Exit the loop if sorting is successful
+                            except FileNotFoundError:
+                                print(f"{RED}Error: No such file or directory: '{search_param}'{RESET}")
 
             else:
                 print(f"{RED}Don't know this command{RESET}")

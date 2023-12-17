@@ -1,6 +1,6 @@
 """Обробка каталогу та його підкаталогів."""
 from pathlib import Path
-from process_file import process_file
+from file_manager.process_file import process_file
 
 def process_directory(directory_path: Path, sorted_folder_path: Path) -> None:
     """Рекурсивна обробка каталогу та його підкаталогів."""

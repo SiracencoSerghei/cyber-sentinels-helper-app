@@ -7,6 +7,11 @@ from contacts.classes.Email import Email
 from contacts.classes.Address import Address
 from contacts.classes.Status import Status
 from contacts.classes.Note import Note
+from utils.record_func import days_to_birthday, add_birthday, edit_birthday
+from utils.record_func import add_phone, remove_phone, edit_phone
+from utils.record_func import find_phone, get_all_phones
+from utils.contact_utils import add_name, edit_name, add_email, edit_email, add_address, edit_address
+from utils.contact_utils import add_note, edit_note, add_status, edit_status
 
 
 class Record:
@@ -38,130 +43,60 @@ class Record:
         self.status = Status(status) if status else None
         self.note = Note(note) if note else None
 
+    def add_name(self, name):
+        self.name = Name(name)
+
+    def edit_name(self, new_name):
+        self.name = Name(new_name)
+
     def days_to_birthday(self):
-        """Повертає кількість днів до наступного дня народження контакту, якщо вказана дата народження.
+        return days_to_birthday(self.birthday)
 
-                Returns:
-                    int or None: Кількість днів до наступного дня народження, або None, якщо дата народження не вказана.
-                """
-        if self.birthday:
-            today = datetime.now()
-            birthday = datetime.strptime(str(self.birthday), '%Y-%m-%d').replace(year=today.year)
+    def add_birthday(self, value):
+        add_birthday(self, value)
 
-            if today > birthday:
-                birthday = birthday.replace(year=today.year + 1)
-
-            delta = birthday - today
-            return delta.days
-        else:
-            return None
-
-
-    def add_field(self, field_name, value):
-        """Add a field to the contact record.
-
-        Args:
-            field_name (str): The name of the field to add.
-            value: The value to set for the field.
-
-        Raises:
-            ValueError: If the field name is invalid or not supported.
-        """
-        match field_name:
-            case "name":
-                setattr(self, field_name, Name(value))
-            case "birthday":
-                setattr(self, field_name, Birthday(value))
-            case "email":
-                setattr(self, field_name, Email(value))
-            case "status":
-                setattr(self, field_name, Status(value))
-            case "note":
-                setattr(self, field_name, Note(value))
-            case _:
-                raise ValueError(f"Invalid or unsupported field name: {field_name}")
-
-    # def edit_attribute(self, field_name, new_value):
-    #     """Edit a field or attribute in the contact record.
-    #
-    #     Args:
-    #         field_name (str): The name of the field or attribute to edit.
-    #         new_value: The new value to set for the field or attribute.
-    #
-    #     Raises:
-    #         ValueError: If the field name is invalid or not supported.
-    #     """
-    #     print(field_name)
-    #     print(new_value)
-    #     if field_name == "name":
-    #         setattr(self, "name", new_value)
-    #         print(self.name)
-    #     elif field_name == "birthday":
-    #         setattr(self.birthday, "value", Birthday(new_value) if new_value else None)
-    #     elif field_name == "email":
-    #         setattr(self.email, "value", Email(new_value))
-    #     elif field_name == "status":
-    #         setattr(self.status, "value", Status(new_value))
-    #     elif field_name == "note":
-    #         setattr(self.note, "value", Note(new_value))
-    #     elif field_name == "phone":
-    #         # Assume new_value is a phone number
-    #         if not isinstance(new_value, Phone):
-    #             new_value = Phone(new_value)
-    #
-    #         # Check if the phone number already exists, and update if it does
-    #         for i, phone in enumerate(self.phones):
-    #             if phone.value == new_value.value:
-    #                 self.phones[i] = new_value
-    #                 break
-    #         else:
-    #             # If the phone number doesn't exist, add it
-    #             self.phones.append(new_value)
-    #     else:
-    #         raise ValueError(f"Invalid or unsupported field name: {field_name}")
+    def edit_birthday(self, new_value):
+        edit_birthday(self, new_value)
 
     def add_phone(self, phone):
-        """Додає телефонний номер контакту.
-
-        Args:
-            phone (str): Телефонний номер для додавання.
-        """
-        if not isinstance(phone, Phone):
-            phone = Phone(phone)
-        self.phones.append(phone)
+        add_phone(self, phone)
 
     def remove_phone(self, phone):
-        """Видаляє телефонний номер контакту.
+        remove_phone(self, phone)
 
-        Args:
-            phone (str): Телефонний номер для видалення.
-        """
-        if phone in [p.value for p in self.phones]:
-            self.phones = [p for p in self.phones if p.value != phone]
-
-
+    def edit_phone(self, old_phone, new_phone):
+        edit_phone(self, old_phone, new_phone)
 
     def find_phone(self, phone):
-        """Знаходить телефонний номер контакту за значенням номера.
-
-        Args:
-            phone (str): Телефонний номер для пошуку.
-
-        Returns:
-            Phone or None: Знайдений телефоний номер або None, якщо не знайдено.
-        """
-        for p in self.phones:
-            if p.value == phone:
-                return p
+        return find_phone(self, phone)
 
     def get_all_phones(self):
-        """Повертає список всіх телефонних номерів контакту.
+        return get_all_phones(self)
 
-        Returns:
-            list of str: Список телефонних номерів контакту.
-        """
-        result = [p.value for p in self.phones]
-        return result
+    def add_email(self, email):
+        return  add_email(self, email)
+
+    def edit_email(self, new_email):
+        edit_email(self,new_email)
+
+
+    def add_address(self, address):
+        add_address(self, address)
+
+    def edit_address(self, new_address):
+        edit_address(self, new_address)
+
+    def add_note(self, note):
+        add_note(self, note)
+
+    def edit_note(self, new_note):
+        edit_note(self, new_note)
+
+    def add_status(self, status):
+        add_status(self, status)
+
+    def edit_status(self, new_status):
+        edit_status(self, new_status)
 
     def __str__(self):
         return (
@@ -169,6 +104,9 @@ class Record:
             f"birthday: {self.birthday},\n"
             f"phones: {'; '.join(p.value for p in self.phones)},\n"
             f"email: {self.email},\n"
+            f"address: {self.address},\n"
             f"status: {self.status},\n"
             f"note: {self.note}"
         )
+if __name__ =='__main__':
+    pass

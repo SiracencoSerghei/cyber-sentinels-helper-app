@@ -28,14 +28,6 @@ class AddressBook(UserDict):
         self.data[record.name.value] = record
 
     def edit_contact(self, search_param):
-        """Edit a contact in the address book based on a search parameter.
-
-        Args:
-            search_param (str): The search parameter to find the contact to edit.
-
-        Returns:
-            None
-        """
         if len(search_param) < 3:
             print("Sorry, the search parameter must be at least 3 characters.")
             return
@@ -60,17 +52,43 @@ class AddressBook(UserDict):
                 field_name = input("Enter the field to edit (name, birthday, email, status, note, phone): ")
 
                 # Check if the entered field name is valid
-                if field_name in ["name", "birthday", "email", "status", "note", "phone"]:
-                    new_value = input("Enter the new value: ")
-                    selected_record.add_field(field_name, new_value)
+                if field_name == "name":
+                    new_value = input("Enter the new name: ")
+                    selected_record.edit_name(new_value)
+                    print(f"Contact '{selected_record.name.value}' updated successfully.")
+                elif field_name == "birthday":
+                    new_value = input("Enter the new birthday: ")
+                    selected_record.edit_birthday(new_value)
+                    print(f"Contact '{selected_record.name.value}' updated successfully.")
+                elif field_name == "email":
+                    new_value = input("Enter the new email: ")
+                    selected_record.edit_email(new_value)
+                    print(f"Contact '{selected_record.name.value}' updated successfully.")
+                elif field_name == "status":
+                    new_value = input("Enter the new status: ")
+                    selected_record.edit_status(new_value)
+                    print(f"Contact '{selected_record.name.value}' updated successfully.")
+                elif field_name == "note":
+                    new_value = input("Enter the new note: ")
+                    selected_record.edit_note(new_value)
+                    print(f"Contact '{selected_record.name.value}' updated successfully.")
+                elif field_name == "phone":
+                    old_phone = input("Enter the old phone: ")
+                    new_phone = input("Enter the new phone: ")
+                    selected_record.edit_phone(old_phone, new_phone)
                     print(f"Contact '{selected_record.name.value}' updated successfully.")
                 else:
                     print("Invalid field name. Please enter a valid field name.")
+                    return  # Add a return statement here to prevent saving in case of an invalid field
+
+                # After editing, save the changes to the file
+                self.save_to_file('outputs/address_book.json')
+                self.save_to_file('outputs/address_book.csv')
+
             else:
                 print("Invalid choice. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
-
     def find_name(self, name):
         """Find a record by name.
 
@@ -144,6 +162,7 @@ class AddressBook(UserDict):
                 "phones": record.get_all_phones(),
                 "birthday": str(record.birthday) if record.birthday else None,
                 "email": record.email.value if record.email else None,
+                "address": record.address.value if record.address else None,
                 "status": record.status.value if record.status else None,
                 "note": record.note.value if record.note else None
             }
@@ -166,17 +185,26 @@ class AddressBook(UserDict):
 
         if file_format == 'json':
             with open(file_name, 'w', encoding="utf-8") as json_file:
-                json.dump(data_to_serialize, json_file)
+                json.dump(data_to_serialize, json_file,  indent=4)
         elif file_format == 'csv':
             with open(file_name, 'w', newline='', encoding="utf-8") as csv_file:
                 csv_writer = csv.writer(csv_file)
 
-                # Assuming data_to_serialize is a list of dictionaries
-                header = data_to_serialize[0].keys() if data_to_serialize else []
+                # Write the header
+                header = ["name", "phones", "birthday", "email", "address", "status", "note"]
                 csv_writer.writerow(header)
 
-                for entry in data_to_serialize:
-                    csv_writer.writerow(entry.values())
+                # Write each record
+                for record in self.values():
+                    csv_writer.writerow([
+                        record.name.value,
+                        ';'.join(p.value for p in record.phones),
+                        str(record.birthday) if record.birthday else "",
+                        record.email.value if record.email else "",
+                        record.address.value if record.address else "",
+                        record.status.value if record.status else "",
+                        record.note.value if record.note else ""
+                    ])
         else:
             raise ValueError(f"Unsupported file format: {file_format}")
 
@@ -200,6 +228,7 @@ class AddressBook(UserDict):
                     phones = record_data.get('phones', [])
                     birthday = record_data.get('birthday', None)
                     email = record_data.get('email', None)
+                    address = record_data.get('address', None)
                     status = record_data.get('status', None)
                     note = record_data.get('note', None)
                     for phone in phones:
@@ -207,19 +236,23 @@ class AddressBook(UserDict):
                     if birthday == 'null':
                         birthday = None
                     if birthday is not None:
-                        new_record.add_field('birthday', birthday)
+                        new_record.add_birthday(birthday)
                     if email == 'null':
                         email = None
                     if email is not None:
-                        new_record.add_field('email', email)
+                        new_record.add_email(email)
                     if status == 'null':
                         status = None
                     if status is not None:
-                        new_record.add_field('status', status)
+                        new_record.add_status(status)
                     if note == 'null':
                         note = None
                     if note is not None:
-                        new_record.add_field('note', note)
+                        new_record.add_note(note)
+                    if address == 'null':
+                        address = None
+                    if address is not None:
+                        new_record.add_address(address)
                     address_book.add_record(new_record)
                 return address_book
         except (FileNotFoundError, EOFError):
@@ -253,14 +286,19 @@ class AddressBook(UserDict):
                     result.append(str(record))
             elif record.birthday and param in str(record.birthday):
                 result.append(str(record))
-            elif param.lower() in (email.lower() for email in record.email.get_all_emails()):
+            elif record.email and param.lower() in (email.lower() for email in record.email.get_all_emails()):
                 result.append(str(record))
-            elif param.lower() in record.status.value.lower():
+            elif record.status and param.lower() in record.status.value.lower():
                 result.append(str(record))
-            elif param.lower() in record.note.value.lower():
+            elif record.note and param.lower() in record.note.value.lower():
                 result.append(str(record))
 
         if not result:
             return "No records found for the given parameter."
 
         return '\n'.join(result)
+
+
+if __name__ =='__main__':
+    record = Record('sergio', 1234567890)
+    print(record)

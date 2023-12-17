@@ -1,7 +1,7 @@
 """Головний модуль"""
 import sys
 from pathlib import Path
-from process_directory import process_directory
+from file_manager.process_directory import process_directory
 
 def sort_folder(folder: str) -> None:
     """ Головна функція обробки папки
@@ -23,12 +23,18 @@ def sort_folder(folder: str) -> None:
 
 
 if __name__ == "__main__":
+    # if len(sys.argv) != 2:
+    #     print("Usage: python sort_dir.py <folder_path>")
+    # else:
+    #     INPUT_FOLDER = sys.argv[1]
+    #     sort_folder(INPUT_FOLDER)
+    # print("Script is done")
+    
     if len(sys.argv) != 2:
         print("Usage: python sort_dir.py <folder_path>")
     else:
-        INPUT_FOLDER = sys.argv[1]
+        INPUT_FOLDER = Path(sys.argv[1]).expanduser()
         sort_folder(INPUT_FOLDER)
     print("Script is done")
-
 
 # python3 sort_dir.py ~/Desktop/мотлох
