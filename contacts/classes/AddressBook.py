@@ -26,6 +26,26 @@ class AddressBook(UserDict):
         if not isinstance(record, Record):
             record = Record(record)
         self.data[record.name.value] = record
+    
+    def del_record(self, name_to_delete):
+        """Delete a record from the address book.
+
+        Args:
+            name_to_delete (str): The name of the record to delete.
+
+        Returns:
+            None
+        """
+        try:
+            if name_to_delete in self.data:
+                del self.data[name_to_delete]
+                self.save_to_file('outputs/address_book.json')  # Save changes to file
+                self.save_to_file('outputs/address_book.csv')
+                print(f"{GREEN}Contact '{name_to_delete}' deleted successfully{RESET}")
+            else:
+                print(f"{RED}No contact found with the name '{name_to_delete}'{RESET}")
+        except Exception as e:
+            print(f"{RED}Error deleting contact: {e}{RESET}")
 
     def edit_contact(self, search_param):
         if len(search_param) < 3:

@@ -4,14 +4,6 @@ from contacts.classes.Address import Address
 from contacts.classes.Note import Note
 from contacts.classes.Status import Status
 
-def add_name(record, value):
-    """Додає ім'я контакту.
-
-    Args:
-        record (Record): Об'єкт класу Record.
-        value (str): Рядок з ім'ям контакту.
-    """
-    record.name = Name(value)
 
 def edit_name(record, new_value):
     """Редагує ім'я контакту.

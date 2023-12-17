@@ -1,5 +1,6 @@
 from contacts.classes.Record import Record
 import os
+from pathlib import Path, PurePath, PurePosixPath
 from contacts.classes.AddressBook import AddressBook
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import  FileHistory
@@ -37,33 +38,7 @@ class Bot:
             completer=WordCompleter(self.__known_commands + self.__exit_commands),
         )
 
-    @staticmethod
-
-
-    @input_errors
-    def change_contact(self, name, old_phone, phone):
-        """Change the phone number associated with a contact.
-
-            Args:
-                name (str): The name of the contact.
-                old_phone (str): The old phone number.
-                phone (str): The new phone number.
-
-            Returns:
-                str: A message indicating the result of the operation.
-            """
-        if name in self.book.data:
-            record = self.book.data[name]
-            if old_phone in record.get_all_phones():
-                record.edit_phone(old_phone, phone)
-                # Save the address book to a file after making the change
-                self.book.save_to_file('outputs/address_book.json')
-                return (f"{GREEN} Contact {name}: {old_phone} was successfully changed!\n "
-                        f"New data: {name}: {phone}{RESET}")
-            else:
-                return f"{RED}There is no number {phone} in {name} contact{RESET}"
-        else:
-            return f"{RED}There is no {name} contact!{RESET}"
+   
 
     @input_errors
     def showall(self, chunk_size=1):
@@ -130,14 +105,12 @@ class Bot:
             str: A message indicating the number of days to the next birthday or an error message.
         """
         contact = self.book.find_name(name)
-        print(f"{YELLOW}{contact}{RESET}")
 
         if contact is None:
             return f"{RED}There is no contact with the name '{name}'{RESET}"
 
         if contact.birthday:
             days = contact.days_to_birthday()
-            print(days)
             if days > 0:
                 return f"{GREEN}{name} has {days} days before their next birthday{RESET}"
             elif days == 0:
@@ -147,32 +120,6 @@ class Bot:
                 return f"{GREEN}{name}'s birthday is in {-days} days{RESET}"
         else:
             return f"{RED}{name} has no birthday set{RESET}"
-
-    @input_errors
-    def add_birthday(self, name, date):
-        contact = self.book.find_name(name)
-
-        if contact is None:
-            return f"{RED}There is no contact with the name '{name}'{RESET}"
-        elif contact.birthday:
-            return f"{RED}If you want to change {name}'s birthday, use 'edit-birthday <new value>'{RESET}"
-        else:
-            contact.add_birthday(date)
-            # Save the address book to a file after adding the birthday
-            self.book.save_to_file('outputs/address_book.json')
-            return f"{GREEN} Was update {name}'s birthday date{RESET}"
-
-    @input_errors
-    def edit_birthday(self, name, date):
-        contact = self.book.find_name(name)
-
-        if contact is None:
-            return f"{RED}There is no contact with the name '{name}'{RESET}"
-        else:
-            contact.edit_birthday(date)
-            # Save the address book to a file after editing the birthday
-            self.book.save_to_file('outputs/address_book.json')
-            return f"{GREEN} Was update {name}'s birthday date{RESET}"
 
 
     def run(self):
@@ -229,6 +176,40 @@ class Bot:
                             print(f"{RED}You need to provide an edit type after 'edit'.{RESET}\n"
                                   f"{GREEN}for example: edit contact or note or todo{RESET}")
 
+                    case "delete":
+                        # Delete an entry from the address book, notes, or to-do list.
+                        try:
+                            
+                            delete_type = input_data[1].lower()
+                            search_param = input(f"Enter the {delete_type} to delete: ")
+                            if delete_type == 'contact':
+                                result = self.book.find(search_param)
+                                delete_method = self.book.del_record
+                            elif delete_type == 'note':
+                                # Implement your note deletion logic and method here
+                                pass
+                            elif delete_type == 'todolist':
+                                # Implement your to-do list deletion logic and method here
+                                pass
+                            else:
+                                print(f"{RED}Invalid delete type. Supported types: contact, note, todolist{RESET}")
+                                return
+
+                            if not result:
+                                print(f"{RED}No {delete_type} found with the specified {delete_type}{RESET}")
+                            else:
+                                # Display the matching records and confirm deletion
+                                print(f"{GREEN}Matching {delete_type}s:\n{result}{RESET}")
+                                confirmation = input(f"Are you sure you want to delete this {delete_type}? (yes/no): ").lower()
+
+                                if confirmation == 'yes':
+                                    delete_method(search_param)
+                                    print(f"{GREEN}{delete_type.capitalize()} '{search_param}' deleted successfully{RESET}")
+                                else:
+                                    print(f"Deletion of {delete_type} canceled.")
+                        except Exception as e:
+                            print(f"{RED}Error deleting {delete_type}: {e}{RESET}")
+                    
                     case "show":
                         try:
                             self.book = AddressBook.load_from_file('outputs/address_book.json')
@@ -260,10 +241,11 @@ class Bot:
                                 break
 
                             # Расширяем путь пользователя, чтобы обработать ~ и получаем абсолютный путь
-                            abs_path = os.path.abspath(os.path.expanduser(search_param))
+                            # abs_path = os.path.abspath(os.path.expanduser(search_param))
 
                             try:
-                                sort_folder(abs_path)
+                                abs_path = Path(search_param).expanduser().absolute()
+                                sort_folder(str(abs_path))
                                 print(f"{GREEN}Folder was sorted{RESET}")
                                 break  # Выход из цикла при успешной сортировке
                             except FileNotFoundError:

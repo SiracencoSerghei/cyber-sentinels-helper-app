@@ -10,7 +10,7 @@ from contacts.classes.Note import Note
 from utils.record_func import days_to_birthday, add_birthday, edit_birthday
 from utils.record_func import add_phone, remove_phone, edit_phone
 from utils.record_func import find_phone, get_all_phones
-from utils.contact_utils import add_name, edit_name, add_email, edit_email, add_address, edit_address
+from utils.contact_utils import edit_name, add_email, edit_email, add_address, edit_address
 from utils.contact_utils import add_note, edit_note, add_status, edit_status
 
 
@@ -43,8 +43,6 @@ class Record:
         self.status = Status(status) if status else None
         self.note = Note(note) if note else None
 
-    def add_name(self, name):
-        self.name = Name(name)
 
     def edit_name(self, new_name):
         self.name = Name(new_name)

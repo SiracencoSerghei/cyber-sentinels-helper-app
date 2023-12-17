@@ -3,7 +3,7 @@ from contacts.classes.Field import Field
 class Status(Field):
     """A class representing the status of a Record in Address Book."""
 
-    VALID_STATUSES = ["family", "work", "friends"]
+    VALID_STATUSES = ["family", "work", "friends", "neighbor", "classmate", "colleague"]
 
     def __init__(self, value=None):
         if value is None:
