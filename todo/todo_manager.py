@@ -154,8 +154,23 @@ class ToDoBook(UserDict):
 
     #we can change return info
 
-    def delete(self, name):
-        pass
+    def delete_task(self):
+        delete_info = input().lower()
+        result_list = []
+        for task in self.data.values():
+            search_by_task = task.task.lower().find(delete_info)
+            search_by_date = str(task.date).find(delete_info)
+            search_by_status = task.status.lower().find(delete_info)
+            search_by_tags = str([tag.value.lower() for tag in task.tags]).find(delete_info)
+            if search_by_task > -1 or search_by_date > -1 or search_by_status > -1 or search_by_tags > -1:
+                result_list.append(task)
+        dict_with_number = dict(zip([i+1 for i in range(len(result_list))], [i.task for i in result_list]))
+        print(dict_with_number)
+        print('Please choose task number?')
+        delete_i = int(input())
+        for key, value in dict_with_number.items():
+            if key == delete_i:
+                del self.data[value]
 
 
 class ToDoList_Save(ToDoRecord):
