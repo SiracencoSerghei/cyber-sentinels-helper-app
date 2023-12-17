@@ -2,6 +2,15 @@ from collections import UserDict
 
 
 class NotesRecord:
+    """Class NotesRecord recording notes to Notes.
+
+            Attributes:
+                self.notes: Notes.
+                
+            Methods:
+                add_notes: adding of notes to Notes
+                delete_notes: deleating of notes
+            """
     def __init__(self, notes):
         self.notes = notes
         self.notes = []
@@ -21,4 +30,6 @@ class NotesRecord:
 
 
 class Notes(UserDict):
-    pass
+    def add_note_record(self, note_record: NotesRecord):
+        self.data[note_record.notes] = note_record   
+        return self.data
