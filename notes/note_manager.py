@@ -12,8 +12,8 @@ class NotesRecord:
                 add_notes: adding of notes to Notes
                 delete_notes: deleating of notes
             """
-    def __init__(self, titel, filename):
-        self.titel = titel
+    def __init__(self, title, filename):
+        self.title = title
         self.file = filename
         self.notes = []
 
@@ -25,14 +25,15 @@ class NotesRecord:
         if not note_to_delete:
             print("Please enter note you would like to delete")
         else:
-            for element in self.notes:
-                if note_to_delete in element['note_name']:
-                    element['note_name'].remove(note_to_delete)
-                    return element
+            if note_to_delete in self.notes:
+                self.notes.remove(note_to_delete)
+                print(f'Note "{note_to_delete}" was successfully deleted.')
+            else:
+                print(f'Note "{note_to_delete}" that you search is not found.')
 
 
     def save_notes(self):
-        with open(self.file, "w ", newline="", encoding="utf-8") as json_file:
+        with open(self.file, "w", newline="", encoding="utf-8") as json_file:
             json.dump(self.notes, json_file)
 
 class Notes(UserDict):
