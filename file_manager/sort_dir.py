@@ -22,19 +22,19 @@ def sort_folder(folder: str) -> None:
     process_directory(folder_path, sorted_folder_path)
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
+#     if len(sys.argv) != 2:
+#         print("Usage: python sort_dir.py <folder_path>")
+#     else:
+#         INPUT_FOLDER = sys.argv[1]
+#         sort_folder(INPUT_FOLDER)
+#     print("Script is done")
+#
     # if len(sys.argv) != 2:
     #     print("Usage: python sort_dir.py <folder_path>")
     # else:
-    #     INPUT_FOLDER = sys.argv[1]
+    #     INPUT_FOLDER = Path(sys.argv[1]).expanduser()
     #     sort_folder(INPUT_FOLDER)
     # print("Script is done")
-    
-    if len(sys.argv) != 2:
-        print("Usage: python sort_dir.py <folder_path>")
-    else:
-        INPUT_FOLDER = Path(sys.argv[1]).expanduser()
-        sort_folder(INPUT_FOLDER)
-    print("Script is done")
 
 # python3 sort_dir.py ~/Desktop/мотлох

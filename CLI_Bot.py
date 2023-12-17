@@ -1,4 +1,5 @@
 from contacts.classes.Record import Record
+import os
 from contacts.classes.AddressBook import AddressBook
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import  FileHistory
@@ -258,12 +259,14 @@ class Bot:
                                 print("Sorting canceled.")
                                 break
 
-                            try:
-                                sort_folder(search_param)
-                                print(f"{GREEN}Folder was sorted{RESET}")
-                                break  # Exit the loop if sorting is successful
-                            except FileNotFoundError:
-                                print(f"{RED}Error: No such file or directory: '{search_param}'{RESET}")
+                            # Расширяем путь пользователя, чтобы обработать ~ и получаем абсолютный путь
+                            abs_path = os.path.abspath(os.path.expanduser(search_param))
 
+                            try:
+                                sort_folder(abs_path)
+                                print(f"{GREEN}Folder was sorted{RESET}")
+                                break  # Выход из цикла при успешной сортировке
+                            except FileNotFoundError:
+                                print(f"{RED}Error: No such file or directory: '{abs_path}'{RESET}")
             else:
                 print(f"{RED}Don't know this command{RESET}")
