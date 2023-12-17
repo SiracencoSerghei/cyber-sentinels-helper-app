@@ -1,4 +1,5 @@
 from collections import UserDict
+import json
 
 
 class NotesRecord:
@@ -11,9 +12,11 @@ class NotesRecord:
                 add_notes: adding of notes to Notes
                 delete_notes: deleating of notes
             """
-    def __init__(self, notes):
+    def __init__(self, notes, filename):
         self.notes = notes
-        self.notes = []
+        self.file = filename
+
+        #self.notes = []
 
     def add_notes(self, note, tags=None): # tags=None if we need it(if not, delit it)
         self.tasks.append({'note_name': note,'tags': tags})
@@ -29,7 +32,16 @@ class NotesRecord:
                     return element
 
 
+    def save_notes(self):
+        with open(self.file, "w ", newline="", encoding="utf-8") as json_file:
+            json.dump(self.notes, json_file)
+
 class Notes(UserDict):
     def add_note_record(self, note_record: NotesRecord):
         self.data[note_record.notes] = note_record   
         return self.data
+    
+
+
+if __name__ == "__main__":
+    pass
