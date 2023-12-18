@@ -33,7 +33,7 @@ def good_bye():
         """
         return "Good bye!"
 
-
+@input_errors
 def load_address_book():
     try:
         return AddressBook.load_from_file('outputs/address_book.json')

@@ -3,8 +3,9 @@ from contacts.classes.Email import Email
 from contacts.classes.Address import Address
 from contacts.classes.Note import Note
 from contacts.classes.Status import Status
+from decorators.input_errors import input_errors
 
-
+@input_errors
 def edit_name(record, new_value):
     """Редагує ім'я контакту.
 
@@ -14,6 +15,7 @@ def edit_name(record, new_value):
     """
     record.name = Name(new_value)
 
+@input_errors
 def add_email(record, value):
     """Додає електронну пошту контакту.
 
@@ -23,6 +25,7 @@ def add_email(record, value):
     """
     record.email = Email(value)
 
+@input_errors
 def edit_email(record, new_value):
     """Редагує електронну пошту контакту.
 
@@ -32,6 +35,7 @@ def edit_email(record, new_value):
     """
     record.email = Email(new_value)
 
+@input_errors
 def add_address(record, value):
     """Додає адресу контакту.
 
@@ -41,6 +45,7 @@ def add_address(record, value):
     """
     record.address = Address(value)
 
+@input_errors
 def edit_address(record, new_value):
     """Редагує адресу контакту.
 
@@ -50,6 +55,7 @@ def edit_address(record, new_value):
     """
     record.address = Address(new_value)
 
+@input_errors
 def add_note(record, value):
     """Додає примітку до контакту.
 
@@ -59,6 +65,7 @@ def add_note(record, value):
     """
     record.note = Note(value)
 
+@input_errors
 def edit_note(record, new_value):
     """Редагує примітку контакту.
 
@@ -68,6 +75,7 @@ def edit_note(record, new_value):
     """
     record.note = Note(new_value)
 
+@input_errors
 def add_status(record, value):
     """Додає статус контакту.
 
@@ -77,6 +85,7 @@ def add_status(record, value):
     """
     record.status = Status(value)
 
+@input_errors
 def edit_status(record, new_value):
     """Редагує статус контакту.
 

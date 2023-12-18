@@ -1,9 +1,7 @@
-from contacts.classes.Record import Record
-import os
-from pathlib import Path, PurePath, PurePosixPath
+from pathlib import Path
 from contacts.classes.AddressBook import AddressBook
 from prompt_toolkit import PromptSession
-from prompt_toolkit.history import  FileHistory
+from prompt_toolkit.history import FileHistory
 from prompt_toolkit.completion import WordCompleter
 from decorators.input_errors import input_errors
 from utils.sanitize_phone_nr import sanitize_phone_number
@@ -12,9 +10,9 @@ from rich.table import Table
 from file_manager.sort_dir import sort_folder
 from utils.help import help
 from utils.address_book_functions import add_contact, greeting, good_bye, load_address_book
+
 # I'm applying the decorator directly, overwriting the function
 sanitize_phone_number = input_errors(sanitize_phone_number)
-
 
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -38,8 +36,6 @@ class Bot:
             completer=WordCompleter(self.__known_commands + self.__exit_commands),
         )
 
-   
-
     @input_errors
     def showall(self, chunk_size=1):
         """Display all contacts in the address book.
@@ -50,10 +46,13 @@ class Bot:
         console = Console()
 
         table = Table(title="Address Book")
-        table.add_column("Name", style="blue", justify="center")
-        table.add_column("Phones", style="blue", justify="center")
-        table.add_column("Birthday", style="blue", justify="center")
-        table.add_column("Email", style="blue", justify="center")
+        table.add_column("Name", style="blue", justify="center", min_width=10, max_width=30)
+        table.add_column("Phones", style="blue", justify="center", min_width=10, max_width=30)
+        table.add_column("Birthday", style="blue", justify="center", min_width=10, max_width=30)
+        table.add_column("Email", style="blue", justify="center", min_width=10, max_width=30)
+        table.add_column("Address", style="blue", justify="center", min_width=10, max_width=30)
+        table.add_column("Status", style="blue", justify="center", min_width=10, max_width=30)
+        table.add_column("Note", style="blue", justify="center", min_width=10, max_width=30)
 
         records = list(self.book.values())
         num_records = len(records)
@@ -65,9 +64,13 @@ class Bot:
                 phones = "; ".join([str(phone) for phone in record.phones])
                 birthday = str(record.birthday) if record.birthday else "N/A"
                 email = record.email.value if record.email else "N/A"
+                address = record.address.value if record.address else "N/A"
+                status = record.status.value if record.status else "N/A"
+                note = record.note.value if record.note else "N/A"
 
-                table.add_row(name, phones, birthday, email)
+                table.add_row(name, phones, birthday, email, address, status, note)
 
+            table.add_row("=" * 30, "=" * 30, "=" * 30, "=" * 30, "=" * 30, "=" * 30, "=" * 30)
             i += chunk_size
 
             if i < num_records:
@@ -76,7 +79,6 @@ class Bot:
                 input(f"{PINK}Press Enter to show the next chunk...{RESET}")
 
         console.print(table)
-
 
     @input_errors
     def get_phone(self, name):
@@ -120,7 +122,6 @@ class Bot:
                 return f"{GREEN}{name}'s birthday is in {-days} days{RESET}"
         else:
             return f"{RED}{name} has no birthday set{RESET}"
-
 
     def run(self):
         """Main function for user interaction.
@@ -179,7 +180,7 @@ class Bot:
                     case "delete":
                         # Delete an entry from the address book, notes, or to-do list.
                         try:
-                            
+
                             delete_type = input_data[1].lower()
                             search_param = input(f"Enter the {delete_type} to delete: ")
                             if delete_type == 'contact':
@@ -200,20 +201,23 @@ class Bot:
                             else:
                                 # Display the matching records and confirm deletion
                                 print(f"{GREEN}Matching {delete_type}s:\n{result}{RESET}")
-                                confirmation = input(f"Are you sure you want to delete this {delete_type}? (yes/no): ").lower()
+                                confirmation = input(
+                                    f"Are you sure you want to delete this {delete_type}? (yes/no): ").lower()
 
                                 if confirmation == 'yes':
                                     delete_method(search_param)
-                                    print(f"{GREEN}{delete_type.capitalize()} '{search_param}' deleted successfully{RESET}")
+                                    print(
+                                        f"{GREEN}{delete_type.capitalize()} '{search_param}' deleted successfully{RESET}")
                                 else:
                                     print(f"Deletion of {delete_type} canceled.")
                         except Exception as e:
                             print(f"{RED}Error deleting {delete_type}: {e}{RESET}")
-                    
+
                     case "show":
                         try:
                             self.book = AddressBook.load_from_file('outputs/address_book.json')
-                            self.showall(int(input_data[1]))
+                            self.showall(int(input_data[1]) if len(input_data) > 1 else 1)
+
                         except IndexError:
                             print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
 
@@ -233,9 +237,11 @@ class Bot:
                             print(f"{GREEN}Matching records:\n{result}{RESET}")
                         except IndexError:
                             print(f"{RED}You have to provide a search parameter after 'find'.{RESET}")
+
                     case "sort":
                         while True:
                             search_param = input("Enter the sort folder (or leave blank to cancel): ")
+
                             if not search_param:
                                 print("Sorting canceled.")
                                 break
@@ -244,11 +250,28 @@ class Bot:
                             # abs_path = os.path.abspath(os.path.expanduser(search_param))
 
                             try:
-                                abs_path = Path(search_param).expanduser().absolute()
-                                sort_folder(str(abs_path))
+                                abs_path = Path(search_param).expanduser()
+                                print('abs_path: ', abs_path)
+                                # sort_folder(str(abs_path))
                                 print(f"{GREEN}Folder was sorted{RESET}")
                                 break  # Выход из цикла при успешной сортировке
                             except FileNotFoundError:
                                 print(f"{RED}Error: No such file or directory: '{abs_path}'{RESET}")
             else:
                 print(f"{RED}Don't know this command{RESET}")
+# if __name__ == "__main__":
+#     if len(sys.argv) != 2:
+#         print("Usage: python sort_dir.py <folder_path>")
+#     else:
+#         INPUT_FOLDER = sys.argv[1]
+#         sort_folder(INPUT_FOLDER)
+#     print("Script is done")
+#
+    # if len(sys.argv) != 2:
+    #     print("Usage: python sort_dir.py <folder_path>")
+    # else:
+    #     INPUT_FOLDER = Path(sys.argv[1]).expanduser()
+    #     sort_folder(INPUT_FOLDER)
+    # print("Script is done")
+
+# python3 sort_dir.py ~/Desktop/мотлох

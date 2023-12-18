@@ -1,8 +1,9 @@
 from datetime import datetime
 from contacts.classes.Birthday import Birthday
 from contacts.classes.Phone import Phone
+from decorators.input_errors import input_errors
 
-
+@input_errors
 def days_to_birthday(birthday):
     today = datetime.now()
     if birthday:
@@ -13,16 +14,18 @@ def days_to_birthday(birthday):
         return delta.days
     else:
         return None
-
+@input_errors
 def add_birthday(record, value):
     record.birthday = Birthday(value)
 
+@input_errors
 def edit_birthday(record, new_value):
     if not new_value:
         record.birthday = None
     else:
         record.birthday = Birthday(new_value)
 
+@input_errors
 def add_phone(record, phone):
     """Додає телефонний номер контакту.
 
@@ -34,6 +37,7 @@ def add_phone(record, phone):
         phone = Phone(phone)
     record.phones.append(phone)
 
+@input_errors
 def remove_phone(record, phone):
     """Видаляє телефонний номер контакту.
 
@@ -44,6 +48,7 @@ def remove_phone(record, phone):
     if phone in [p.value for p in record.phones]:
         record.phones = [p for p in record.phones if p.value != phone]
 
+@input_errors
 def edit_phone(record, old_phone, new_phone):
     """Редагує існуючий телефонний номер контакту.
 
@@ -63,6 +68,7 @@ def edit_phone(record, old_phone, new_phone):
     if not is_found_old_phone:
         raise ValueError('Phone not found')
 
+@input_errors
 def find_phone(record, phone):
     """Знаходить телефонний номер контакту за значенням номера.
 
@@ -77,6 +83,7 @@ def find_phone(record, phone):
         if p.value == phone:
             return p
 
+@input_errors
 def get_all_phones(record):
     """Повертає список всіх телефонних номерів контакту.
 

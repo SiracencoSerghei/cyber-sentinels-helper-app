@@ -109,6 +109,7 @@ class AddressBook(UserDict):
                 print("Invalid choice. Please enter a valid number.")
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+
     def find_name(self, name):
         """Find a record by name.
 
@@ -297,28 +298,42 @@ class AddressBook(UserDict):
 
         result = []
 
-        for record in self.values():
+        for i, record in enumerate(self.values()):
+
             if param.lower() in record.name.value.lower():
                 result.append(str(record))
+                result.append('=' * 30)
             elif param.isdigit():
                 matching_phones = [phone for phone in record.get_all_phones() if param in phone]
                 if matching_phones:
                     result.append(str(record))
+                    result.append('=' * 30)
             elif record.birthday and param in str(record.birthday):
                 result.append(str(record))
-            elif record.email and param.lower() in (email.lower() for email in record.email.get_all_emails()):
+                result.append('=' * 30)
+            elif record.email and param.lower() in record.email.value.lower():
                 result.append(str(record))
+                result.append('=' * 30)
+            elif record.address and param.lower() in record.address.value.lower():
+                result.append(str(record))
+                result.append('=' * 30)
             elif record.status and param.lower() in record.status.value.lower():
                 result.append(str(record))
+                result.append('=' * 30)
             elif record.note and param.lower() in record.note.value.lower():
                 result.append(str(record))
+                result.append('=' * 30)
 
         if not result:
             return "No records found for the given parameter."
+
 
         return '\n'.join(result)
 
 
 if __name__ =='__main__':
-    record = Record('sergio', 1234567890)
-    print(record)
+    print("Loading address book from file...")
+    book = AddressBook.load_from_file('../../outputs/address_book.json')
+    print(book.find('sergio'))
+
+
