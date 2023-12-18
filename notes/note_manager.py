@@ -12,7 +12,7 @@ class NotesRecord:
                 add_notes: adding of notes to Notes
                 delete_notes: deleating of notes
             """
-    def __init__(self, title, filename):
+    def __init__(self, title):
         self.title = title
         self.notes = []
 
@@ -94,7 +94,7 @@ class SaveToNotes(Notes):
         try:
             with open(filename, "a", encoding="utf-8") as json_file:
                 data = {title: record.notes for title, record in self.data.items()}
-                json.dump(data, json_file,separators=(',', ':'))
+                json.dump(data, json_file, separators=(',', ':'))
                 json_file.write('\n')  
             print(f'Notes saved to {filename} successfully.')
         except Exception as e:

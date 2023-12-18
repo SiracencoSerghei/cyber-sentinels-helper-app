@@ -133,7 +133,7 @@ class ToDoBook(UserDict):
     # I think "self.data[record.task] = record" will be correct
 
     def search_task(self):
-        search_info = input().lower()
+        search_info = input("Enter info for search: ").lower()
         for task in self.data.values():
             search_by_task = task.task.lower().find(search_info)
             search_by_date1 = str(task.begin).find(search_info)
@@ -141,12 +141,12 @@ class ToDoBook(UserDict):
             search_by_status = task.status.lower().find(search_info)
             search_by_tags = str([tag.value.lower() for tag in task.tags]).find(search_info)
             if search_by_task > -1 or search_by_date1 > -1 or search_by_date2 > -1 or search_by_status > -1 or search_by_tags > -1:
-                print(task.task)
+                print(task)
 
     # we can change return info
 
     def delete_task(self):
-        delete_info = input().lower()
+        delete_info = input("Enter info for delete: ").lower()
         result_list = []
         for task in self.data.values():
             search_by_task = task.task.lower().find(delete_info)
@@ -158,8 +158,7 @@ class ToDoBook(UserDict):
                 result_list.append(task)
         dict_with_number = dict(zip([i + 1 for i in range(len(result_list))], [i.task for i in result_list]))
         print(dict_with_number)
-        print('Please choose task number?')
-        delete_i = int(input())
+        delete_i = int(input("Please choose task number: "))
         for key, value in dict_with_number.items():
             if key == delete_i:
                 del self.data[value]
@@ -190,5 +189,13 @@ if __name__ == '__main__':
 
     task3.edit_tags('beauty', 'salon')
     task2.delete_tags('beauty')
+    task2.edit_task("shampoo", "soap")
+    task2.edit_begin_date("2023-12-17")
+    task2.edit_end_date("2023-12-21")
+    task2.edit_status("Done")
+
+    to_do_list.search_task()
+    to_do_list.delete_task()
+
     for name, record in to_do_list.data.items():
         print(record)
