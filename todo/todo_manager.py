@@ -167,7 +167,7 @@ class ToDoBook(UserDict):
 
 class ToDoListSave(ToDoRecord):
     def save_list(self):
-        with open(self.file, "w ", encoding="utf-8") as f:
+        with open(self.file, "w", encoding="utf-8") as f:
             json.dump((self.date, self.task), f)
 
 
