@@ -105,11 +105,17 @@ class ToDoRecord:
             new_task = self.task.replace(wrong_part, new_part)
             self.task = new_task
 
-    # changing task date
-    def edit_date(self, new_date):
+    # changing begin date
+    def edit_begin_date(self, new_date):
         if not isinstance(new_date, Birthday):
             new_date = Birthday(new_date)
-        self.date = new_date
+        self.begin = new_date
+
+    # changing end date
+    def edit_end_date(self, new_date):
+        if not isinstance(new_date, Birthday):
+            new_date = Birthday(new_date)
+        self.end = new_date
 
     # changing task status
     def edit_status(self, new_status):
@@ -134,7 +140,7 @@ class ToDoBook(UserDict):
             search_by_date2 = str(task.end).find(search_info)
             search_by_status = task.status.lower().find(search_info)
             search_by_tags = str([tag.value.lower() for tag in task.tags]).find(search_info)
-            if search_by_task > -1 or search_by_date > -1 or search_by_status > -1 or search_by_tags > -1:
+            if search_by_task > -1 or search_by_date1 > -1 or search_by_date2 > -1 or search_by_status > -1 or search_by_tags > -1:
                 print(task.task)
 
     # we can change return info
@@ -144,10 +150,11 @@ class ToDoBook(UserDict):
         result_list = []
         for task in self.data.values():
             search_by_task = task.task.lower().find(delete_info)
-            search_by_date = str(task.date).find(delete_info)
+            search_by_date1 = str(task.begin).find(delete_info)
+            search_by_date2 = str(task.end).find(delete_info)
             search_by_status = task.status.lower().find(delete_info)
             search_by_tags = str([tag.value.lower() for tag in task.tags]).find(delete_info)
-            if search_by_task > -1 or search_by_date > -1 or search_by_status > -1 or search_by_tags > -1:
+            if search_by_task > -1 or search_by_date1 > -1 or search_by_date2 > -1 or search_by_status > -1 or search_by_tags > -1:
                 result_list.append(task)
         dict_with_number = dict(zip([i + 1 for i in range(len(result_list))], [i.task for i in result_list]))
         print(dict_with_number)
