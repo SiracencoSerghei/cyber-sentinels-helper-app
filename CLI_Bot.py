@@ -1,4 +1,3 @@
-from pathlib import Path
 import os
 from contacts.classes.AddressBook import AddressBook
 from prompt_toolkit import PromptSession
@@ -8,7 +7,7 @@ from decorators.input_errors import input_errors
 from utils.sanitize_phone_nr import sanitize_phone_number
 from rich.console import Console
 from rich.table import Table
-from file_manager.sort_dir import sort_folder
+from file_manager.norton_commander import display_directory_contents
 from utils.help import help
 from utils.address_book_functions import add_contact, greeting, good_bye, load_address_book
 
@@ -26,10 +25,11 @@ RESET = "\033[0m"
 #  ================================
 
 class Bot:
+    # noinspection PyTypeChecker
     def __init__(self):
         self.__known_commands = (
             "help", "add", "edit", "find", "delete",
-            "show", "hello", "days-to-birthday", "sort")
+            "show", "hello", "days-to-birthday", "file-manager")
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
         self.session = PromptSession(
@@ -208,7 +208,8 @@ class Bot:
                                 if confirmation == 'yes':
                                     delete_method(search_param)
                                     print(
-                                        f"{GREEN}{delete_type.capitalize()} '{search_param}' deleted successfully{RESET}")
+                                        f"{GREEN}{delete_type.capitalize()} '{search_param}' "
+                                        f"deleted successfully{RESET}")
                                 else:
                                     print(f"Deletion of {delete_type} canceled.")
                         except Exception as e:
@@ -239,27 +240,13 @@ class Bot:
                         except IndexError:
                             print(f"{RED}You have to provide a search parameter after 'find'.{RESET}")
 
-                    case "sort":
-                        while True:
-                            search_param = input("Enter the sort folder (or leave blank to cancel): ")
-
-                            if not search_param:
-                                print("Sorting canceled.")
-                                break
-
-                            # Расширяем путь пользователя, чтобы обработать ~ и получаем абсолютный путь
-
-                            try:
-                                print("cwd:", os.getcwd())
-                                current_directory = os.getcwd()
-                                # Navigate two levels up
-                                parent_directory = os.path.abspath(os.path.join(current_directory, '..', '..'))
-                                abs_path = os.path.join(parent_directory, search_param)
-
-                                sort_folder(str(abs_path))
-                                print(f"{GREEN}Folder was sorted{RESET}")
-                                break  # Выход из цикла при успешной сортировке
-                            except FileNotFoundError:
-                                print(f"{RED}Error: No such file or directory: '{abs_path}'{RESET}")
+                    case "file-manager":
+                        try:
+                            start_path = os.path.expanduser("~")
+                            display_directory_contents(start_path)
+                            print(f"{GREEN}Folder was sorted{RESET}")
+                        except Exception as e:
+                            # print(f"{RED}Error: '{e}'{RESET}")
+                            pass
             else:
                 print(f"{RED}Don't know this command{RESET}")
