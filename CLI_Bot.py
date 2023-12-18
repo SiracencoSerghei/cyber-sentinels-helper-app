@@ -56,15 +56,9 @@ class Bot:
         table.add_column("Note", style="blue", justify="center", min_width=10, max_width=30)
 
         records = list(self.book.values())
-        print(records)
-
         num_records = len(records)
-        print(num_records)
-
-        print("chank_size", chunk_size)
         if chunk_size is None or chunk_size > num_records:
             chunk_size = num_records
-        print(chunk_size)
         i = 0
         while i < num_records:
             chunk = records[i:i + chunk_size]
