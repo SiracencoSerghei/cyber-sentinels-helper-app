@@ -14,7 +14,6 @@ class NotesRecord:
             """
     def __init__(self, title, filename):
         self.title = title
-        self.file = filename
         self.notes = []
 
     def add_notes(self, note): 
@@ -56,10 +55,6 @@ class NotesRecord:
                 print(f'Note "{note_to_delete}" that you search is not found.')
 
 
-    def save_notes(self):
-        with open(self.file, "w", newline="", encoding="utf-8") as json_file:
-            json.dump(self.notes, json_file)
-
 class Notes(UserDict):
     def add_note_record(self, note_record: NotesRecord):
         self.data[note_record.title] = note_record   
@@ -91,6 +86,63 @@ class Notes(UserDict):
             if key == delete_i:
                 del self.data[value]
     
+
+#save to file by line
+class SaveToNotes(Notes):
+    def save_notes(self):
+        filename = "Notes.json"
+        try:
+            with open(filename, "a", encoding="utf-8") as json_file:
+                data = {title: record.notes for title, record in self.data.items()}
+                json.dump(data, json_file,separators=(',', ':'))
+                json_file.write('\n')  
+            print(f'Notes saved to {filename} successfully.')
+        except Exception as e:
+            print(f'Error saving notes to {filename}: {e}')
+
+if __name__ == "__main__":
+    note_record_1 = NotesRecord(title="Cake")
+    
+    # Add some notes
+    note_record_1.add_notes("flour")
+    note_record_1.add_notes("sugar")
+    note_record_1.add_notes("eggs")
+
+    note_record_1.change_title("By_list")
+
+    note_record_1.edit_note("flour", "milk")
+
+    note_record_1.delete_notes("eggs")
+
+    # Create a new NotesRecord with a modified title
+    modified_note_record = note_record_1.edit_title("By", "By Ingredients")
+
+    # Save notes to a file
+    save_notes_instance_1 = SaveToNotes()
+    save_notes_instance_1.add_note_record(note_record_1)
+    save_notes_instance_1.save_notes()
+
+
+    note_record_1 = NotesRecord(title="Coffe")
+    
+    # Add some notes
+    note_record_1.add_notes("Cafe Late")
+    note_record_1.add_notes("Irish Coffe")
+    
+
+    note_record_1.change_title("Coffe-choose")
+
+    note_record_1.edit_note("Cafe Late", "Capuchino")
+
+    #note_record_1.delete_notes("eggs")
+
+    # Create a new NotesRecord with a modified title
+    modified_note_record = note_record_1.edit_title("By", "By Ingredients")
+
+    # Save notes to a file
+    save_notes_instance_1 = SaveToNotes()
+    save_notes_instance_1.add_note_record(note_record_1)
+    save_notes_instance_1.save_notes()
 
 
 if __name__ == "__main__":
