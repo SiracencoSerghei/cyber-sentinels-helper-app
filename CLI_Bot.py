@@ -38,7 +38,7 @@ class Bot:
         )
 
     @input_errors
-    def showall(self, chunk_size=1):
+    def showall(self, chunk_size = None):
         """Display all contacts in the address book.
 
         Returns:
@@ -56,10 +56,19 @@ class Bot:
         table.add_column("Note", style="blue", justify="center", min_width=10, max_width=30)
 
         records = list(self.book.values())
+        print(records)
+
         num_records = len(records)
+        print(num_records)
+
+        print("chank_size", chunk_size)
+        if chunk_size is None or chunk_size > num_records:
+            chunk_size = num_records
+        print(chunk_size)
         i = 0
         while i < num_records:
             chunk = records[i:i + chunk_size]
+            print(len(chunk))
             for record in chunk:
                 name = record.name.value
                 phones = "; ".join([str(phone) for phone in record.phones])
@@ -71,13 +80,16 @@ class Bot:
 
                 table.add_row(name, phones, birthday, email, address, status, note)
 
-            table.add_row("=" * 30, "=" * 30, "=" * 30, "=" * 30, "=" * 30, "=" * 30, "=" * 30)
-            i += chunk_size
+            if chunk_size is not None:
+                table.add_row("=" * 30, "=" * 30, "=" * 30, "=" * 30, "=" * 30, "=" * 30, "=" * 30)
+                i += chunk_size
 
-            if i < num_records:
-                # Wait for Enter keypress to continue
-                console.print(table)
-                input(f"{PINK}Press Enter to show the next chunk...{RESET}")
+                if i < num_records:
+                    # Если chunk_size указано и есть еще записи, ожидаем Enter для продолжения
+                    console.print(table)
+                    input(f"{PINK}Press Enter to show the next chunk...{RESET}")
+            else:
+                i = num_records
 
         console.print(table)
 
@@ -123,6 +135,7 @@ class Bot:
                 return f"{GREEN}{name}'s birthday is in {-days} days{RESET}"
         else:
             return f"{RED}{name} has no birthday set{RESET}"
+
 
     def run(self):
         """Main function for user interaction.
@@ -218,7 +231,8 @@ class Bot:
                     case "show":
                         try:
                             self.book = AddressBook.load_from_file('outputs/address_book.json')
-                            self.showall(int(input_data[1]) if len(input_data) > 1 else 1)
+                            self.showall(int(input_data[1]) if len(input_data) > 1 else None)
+
 
                         except IndexError:
                             print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
@@ -250,3 +264,4 @@ class Bot:
                             pass
             else:
                 print(f"{RED}Don't know this command{RESET}")
+
