@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 from contacts.classes.AddressBook import AddressBook
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
@@ -247,31 +248,18 @@ class Bot:
                                 break
 
                             # Расширяем путь пользователя, чтобы обработать ~ и получаем абсолютный путь
-                            # abs_path = os.path.abspath(os.path.expanduser(search_param))
 
                             try:
-                                abs_path = Path(search_param).expanduser()
-                                print('abs_path: ', abs_path)
-                                # sort_folder(str(abs_path))
+                                print("cwd:", os.getcwd())
+                                current_directory = os.getcwd()
+                                # Navigate two levels up
+                                parent_directory = os.path.abspath(os.path.join(current_directory, '..', '..'))
+                                abs_path = os.path.join(parent_directory, search_param)
+
+                                sort_folder(str(abs_path))
                                 print(f"{GREEN}Folder was sorted{RESET}")
                                 break  # Выход из цикла при успешной сортировке
                             except FileNotFoundError:
                                 print(f"{RED}Error: No such file or directory: '{abs_path}'{RESET}")
             else:
                 print(f"{RED}Don't know this command{RESET}")
-# if __name__ == "__main__":
-#     if len(sys.argv) != 2:
-#         print("Usage: python sort_dir.py <folder_path>")
-#     else:
-#         INPUT_FOLDER = sys.argv[1]
-#         sort_folder(INPUT_FOLDER)
-#     print("Script is done")
-#
-    # if len(sys.argv) != 2:
-    #     print("Usage: python sort_dir.py <folder_path>")
-    # else:
-    #     INPUT_FOLDER = Path(sys.argv[1]).expanduser()
-    #     sort_folder(INPUT_FOLDER)
-    # print("Script is done")
-
-# python3 sort_dir.py ~/Desktop/мотлох
