@@ -15,7 +15,7 @@ class NotesRecord:
     def __init__(self, title, *notes):
         self.title = title
         if notes is None:
-            pass
+            self.notes=[]
         self.notes = [notes]
 
     def add_notes(self, note):
@@ -62,7 +62,11 @@ class Notes(UserDict):
         self.data[note_record.title] = note_record
         return self.data
 
-    def search_note(self):
+    def search_in_note_by_title(self, title):
+        titles = self.data.values
+        print(titles)
+
+    def search_note(self,):
         search_info = input().lower()
         for note in self.data.values():
             search_by_title = note.title.lower().find(search_info)
@@ -70,7 +74,6 @@ class Notes(UserDict):
             if search_by_title > -1 or search_by_notes > -1:
                 return note.title
 
-    #we can change return info
 
     def delete_note(self):
         delete_info = input().lower()
@@ -88,10 +91,9 @@ class Notes(UserDict):
             if key == delete_i:
                 del self.data[value]
 
-    def save_to_file_notes(self):
-        filename = "Notes.json"
+    def save_to_file_notes(self, filename):
         try:
-            with open(filename, "a", encoding="utf-8") as json_file:
+            with open(filename, "w", encoding="utf-8") as json_file:
                 data = {title: record.notes for title, record in self.data.items()}
                 json.dump(data, json_file, separators=(',', ':'))
                 json_file.write('\n')
@@ -99,11 +101,12 @@ class Notes(UserDict):
         except Exception as e:
             print(f'Error saving notes to {filename}: {e}')
 
-        # @classmethod
-    def load_from_file(cls, filename="outputs/notes.json"):
+
+    @ staticmethod
+    def load_from_file(filename):
         try:
             with open(filename, "r", encoding="utf-8") as json_file:
-                notes_book = cls  # create an instance of NotesBook
+                notes_book = Notes()
                 for line in json_file:
                     data = json.loads(line.strip())
                     title = data["title"]
@@ -115,7 +118,7 @@ class Notes(UserDict):
             return notes_book
         except Exception as e:
             print(f'Error loading notes from {filename}: {e}')
-            return cls  # Return a new instance in case of an error
+            return Notes()  # Return a new instance in case of an error
 
 
 #save to file by line

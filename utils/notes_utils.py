@@ -21,7 +21,7 @@ def load_notes_from_file():
         return Notes()  # Creating a new instance
 
 @input_errors
-def add_note_record(self, title, *notes):
+def add_note_record_to_notes(notesbook, title, *notes):
     """Add a note to the notes book.
 
     Args:
@@ -32,16 +32,18 @@ def add_note_record(self, title, *notes):
     Returns:
         str: A message indicating the result of the operation.
     """
-    record = self.search_note(title)
+    notes_list = []
+    notes =notes[0]
+    notes1 = ' '.join(notes)
+    notes_list.append(notes1)
+
+    record = notesbook.add_note_record(title)
+    print(record)
     if record is None:
-        record = NotesRecord(title)
-        self.add_note_record(record)
-    for note in notes:
-        if not isinstance(note, Name):
-            note = Name(note)  # Pass the note value to the Name constructor
-        else:
-            return f"{RED}Note {note} is not valid and not added to {title}{RESET}"
-    self.save_to_file('outputs/notes.json')
+        record = NotesRecord(title, notes1)
+        notesbook.add_note_record(record)
+
+    notesbook.save_to_file_notes('outputs/notes.json')
     return f"{GREEN}Note {title} was added successfully!{RESET}"
 
 

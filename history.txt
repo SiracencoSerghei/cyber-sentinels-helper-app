@@ -272,3 +272,114 @@
 
 # 2023-12-19 12:12:10.859548
 +show
+
+# 2023-12-19 12:14:29.562643
++add-contact
+
+# 2023-12-19 12:14:48.087235
++add-contact Vica 2345678901 0987654312
+
+# 2023-12-19 12:18:32.985658
++exit
+
+# 2023-12-19 12:18:42.816589
++add-contact Vica 2345678901 0987654312
+
+# 2023-12-19 12:20:34.027599
++exit
+
+# 2023-12-19 12:20:38.498093
++add-contact Vica 2345678901 0987654312
+
+# 2023-12-19 12:23:41.959486
++ex
+
+# 2023-12-19 12:23:47.293642
++exit
+
+# 2023-12-19 12:23:52.736837
++add-contact Vica 2345678901 0987654312
+
+# 2023-12-19 12:29:16.801031
++exit
+
+# 2023-12-19 12:29:48.817757
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:10:00.802745
++exit
+
+# 2023-12-19 13:10:14.193589
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:11:38.264549
++exit
+
+# 2023-12-19 13:11:41.449285
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:12:43.089904
++exit
+
+# 2023-12-19 13:12:46.466932
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:13:38.893599
++exit
+
+# 2023-12-19 13:13:42.129024
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:14:58.333353
++exit
+
+# 2023-12-19 13:15:01.793909
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:15:42.364254
++exit
+
+# 2023-12-19 13:15:52.561519
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:19:02.340642
++exit
+
+# 2023-12-19 13:19:35.507433
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:20:15.021618
++exit
+
+# 2023-12-19 13:20:20.774381
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:21:28.280345
++exit
+
+# 2023-12-19 13:21:31.567051
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:23:15.269512
++exit
+
+# 2023-12-19 13:23:17.882179
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:26:35.448811
++exit
+
+# 2023-12-19 13:26:40.695620
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:27:46.450683
++exit
+
+# 2023-12-19 13:27:50.322675
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese
+
+# 2023-12-19 13:41:04.189963
++exit
+
+# 2023-12-19 13:41:07.451612
++add-note Go_to_shopping Bread Salt Coffee Wine Chips Cheese

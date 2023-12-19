@@ -58,9 +58,8 @@ def add_contact(book, name, *phones):
     if contact is None:
         contact = Record(name)
         book.add_record(contact)
-    print(phones)
+    phones = phones[0]
     for phone in phones:
-        print(phone)
         sanitized_phone = sanitize_phone_number(phone)
         if sanitized_phone.isdigit():
             contact.add_phone(sanitized_phone)

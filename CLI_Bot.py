@@ -11,7 +11,7 @@ from rich.table import Table
 from file_manager.norton_commander import display_directory_contents
 from utils.help import help
 from utils.address_book_functions import add_contact, greeting, good_bye, load_address_book
-from utils.notes_utils import load_notes_from_file, add_note_record
+from utils.notes_utils import load_notes_from_file, add_note_record_to_notes
 
 
 # I'm applying the decorator directly, overwriting the function
@@ -175,7 +175,7 @@ class Bot:
                                   f"add <name> <phone>{RESET}")
                     case 'add-note':
                         if len(input_data) >= 2:
-                            print(add_note_record(self.notesbook, input_data[1], input_data[2:]))
+                            print(add_note_record_to_notes(self.notesbook, input_data[1], input_data[2:]))
                         else:
                             print("Invalid input. Usage: add-note <title> <note1> <note2> ...")
 
