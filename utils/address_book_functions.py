@@ -1,6 +1,5 @@
 from contacts.classes.Record import Record
 from contacts.classes.AddressBook import AddressBook
-from utils.sanitize_phone_nr import sanitize_phone_number
 from rich.console import Console
 
 from decorators.input_errors import input_errors
@@ -59,7 +58,9 @@ def add_contact(book, name, *phones):
     if contact is None:
         contact = Record(name)
         book.add_record(contact)
+    print(phones)
     for phone in phones:
+        print(phone)
         sanitized_phone = sanitize_phone_number(phone)
         if sanitized_phone.isdigit():
             contact.add_phone(sanitized_phone)

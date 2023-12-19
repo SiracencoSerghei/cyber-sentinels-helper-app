@@ -7,16 +7,18 @@ class NotesRecord:
 
             Attributes:
                 self.notes: Notes.
-                
+
             Methods:
                 add_notes: adding of notes to Notes
                 delete_notes: deleating of notes
             """
-    def __init__(self, title):
+    def __init__(self, title, *notes):
         self.title = title
-        self.notes = []
+        if notes is None:
+            pass
+        self.notes = [notes]
 
-    def add_notes(self, note): 
+    def add_notes(self, note):
         self.notes.append(note)
         print(f'Enjoy, you had added "{note}" to your notes.')
 
@@ -57,16 +59,16 @@ class NotesRecord:
 
 class Notes(UserDict):
     def add_note_record(self, note_record: NotesRecord):
-        self.data[note_record.title] = note_record   
+        self.data[note_record.title] = note_record
         return self.data
-    
+
     def search_note(self):
         search_info = input().lower()
         for note in self.data.values():
             search_by_title = note.title.lower().find(search_info)
             search_by_notes = str([n.lower() for n in note.notes]).find(search_info)
             if search_by_title > -1 or search_by_notes > -1:
-                print(note.title) 
+                return note.title
 
     #we can change return info
 
@@ -85,24 +87,53 @@ class Notes(UserDict):
         for key, value in dict_with_number.items():
             if key == delete_i:
                 del self.data[value]
-    
 
-#save to file by line
-class SaveToNotes(Notes):
-    def save_notes(self):
+    def save_to_file_notes(self):
         filename = "Notes.json"
         try:
             with open(filename, "a", encoding="utf-8") as json_file:
                 data = {title: record.notes for title, record in self.data.items()}
                 json.dump(data, json_file, separators=(',', ':'))
-                json_file.write('\n')  
+                json_file.write('\n')
             print(f'Notes saved to {filename} successfully.')
         except Exception as e:
             print(f'Error saving notes to {filename}: {e}')
 
+        # @classmethod
+    def load_from_file(cls, filename="outputs/notes.json"):
+        try:
+            with open(filename, "r", encoding="utf-8") as json_file:
+                notes_book = cls  # create an instance of NotesBook
+                for line in json_file:
+                    data = json.loads(line.strip())
+                    title = data["title"]
+                    notes = data["notes"]
+                    note_record = NotesRecord(title)
+                    note_record.notes = notes
+                    notes_book.data[title] = note_record
+            print(f'Notes loaded from {filename} successfully.')
+            return notes_book
+        except Exception as e:
+            print(f'Error loading notes from {filename}: {e}')
+            return cls  # Return a new instance in case of an error
+
+
+#save to file by line
+# class SaveToNotes(Notes):
+#     def save_notes(self):
+#         filename = "Notes.json"
+#         try:
+#             with open(filename, "a", encoding="utf-8") as json_file:
+#                 data = {title: record.notes for title, record in self.data.items()}
+#                 json.dump(data, json_file, separators=(',', ':'))
+#                 json_file.write('\n')
+#             print(f'Notes saved to {filename} successfully.')
+#         except Exception as e:
+#             print(f'Error saving notes to {filename}: {e}')
+
 if __name__ == "__main__":
     note_record_1 = NotesRecord(title="Cake")
-    
+
     # Add some notes
     note_record_1.add_notes("flour")
     note_record_1.add_notes("sugar")
@@ -118,17 +149,17 @@ if __name__ == "__main__":
     modified_note_record = note_record_1.edit_title("By", "By Ingredients")
 
     # Save notes to a file
-    save_notes_instance_1 = SaveToNotes()
-    save_notes_instance_1.add_note_record(note_record_1)
-    save_notes_instance_1.save_notes()
+    # save_notes_instance_1 = SaveToNotes()
+    # save_notes_instance_1.add_note_record(note_record_1)
+    # save_notes_instance_1.save_notes()
 
 
     note_record_1 = NotesRecord(title="Coffe")
-    
+
     # Add some notes
     note_record_1.add_notes("Cafe Late")
     note_record_1.add_notes("Irish Coffe")
-    
+
 
     note_record_1.change_title("Coffe-choose")
 
@@ -139,11 +170,121 @@ if __name__ == "__main__":
     # Create a new NotesRecord with a modified title
     modified_note_record = note_record_1.edit_title("By", "By Ingredients")
 
-    # Save notes to a file
-    save_notes_instance_1 = SaveToNotes()
-    save_notes_instance_1.add_note_record(note_record_1)
-    save_notes_instance_1.save_notes()
+    # # Save notes to a file
+    # save_notes_instance_1 = SaveToNotes()
+    # save_notes_instance_1.add_note_record(note_record_1)
+    # save_notes_instance_1.save_notes()
 
 
 if __name__ == "__main__":
     pass
+
+
+#
+# from collections import UserDict
+# import json
+# from contacts.classes.Name import Name
+#
+#
+# class NoteRecord:
+#     """Class NoteRecord recording notes to Notes.
+#
+#     Attributes:
+#         self.notes: Notes.
+#
+#     Methods:
+#         add_notes: adding of notes to Notes
+#         edit_notes: editing title and notes
+#         delete_notes: deleting of notes
+#     """
+#
+#     def __init__(self, title):
+#         self.title = Name(title)
+#         self.notes = []
+#
+#     def add_notes(self, *notes):
+#         self.notes.extend(notes)
+#         print(f'Enjoy, you had added {", ".join(map(str, notes))} to your notes.')
+#
+#     def edit_notes(self, new_title=None, new_notes=None):
+#         if new_title is not None:
+#             self.title = new_title
+#         if new_notes is not None:
+#             self.notes = new_notes
+#         print(f'Note "{self.title}" has been edited successfully.')
+#
+#     def delete_notes(self):
+#         self.title = None
+#         self.notes = []
+#         print(f'Note has been deleted successfully.')
+#
+# class NotesBook(UserDict):
+#     def add_note_record(self, note_record: NoteRecord, *notes):
+#         note_record.add_notes(*notes)
+#         self.data[note_record.title] = note_record
+#         return self.data
+#
+#
+#     def search_note(self, title):
+#         title = title.lower()
+#         for record in self.data.values():
+#             if record.title.lower() == title:
+#                 return record
+#         return None
+#
+#
+#
+#     def delete_note_record(self, title):
+#         if title in self.data:
+#             del self.data[title]
+#             print(f'Note record "{title}" has been deleted successfully.')
+#         else:
+#             print(f'Note record "{title}" not found.')
+#
+#     @staticmethod
+#     def convert_to_serializable(notesbook):
+#         """Converts the NotesBook object to a serializable format.
+#
+#         Args:
+#             notesbook (NotesBook): The NotesBook object to convert.
+#
+#         Returns:
+#             dict: A dictionary containing the serialized data.
+#         """
+#         serializable_data = {}
+#         for key, record in notesbook.items():
+#             serializable_data[str(key)] = {"title": str(record.title),
+#                                            "notes": [str(note) for note in record.notes]}
+#         return serializable_data
+#
+#     def save_to_file(self, file_name):
+#         """
+#         Save the instance to a JSON file.
+#
+#         Args:
+#             file_name (str): The name of the file to save the instance.
+#
+#         Returns:
+#             None
+#         """
+#         data_to_serialize = NotesBook.convert_to_serializable(self)
+#         with open(file_name, 'w', encoding="utf-8") as json_file:
+#             json.dump(data_to_serialize, json_file, indent=4)
+#
+#     @classmethod
+#     def load_from_file(cls, filename="notes.json"):
+#         try:
+#             with open(filename, "r", encoding="utf-8") as json_file:
+#                 notes_book = cls()  # create an instance of NotesBook
+#                 for line in json_file:
+#                     data = json.loads(line.strip())
+#                     title = data["title"]
+#                     notes = data["notes"]
+#                     note_record = NoteRecord(title)
+#                     note_record.notes = notes
+#                     notes_book.data[title] = note_record
+#             print(f'Notes loaded from {filename} successfully.')
+#             return notes_book
+#         except Exception as e:
+#             print(f'Error loading notes from {filename}: {e}')
+#             return cls()  # Return a new instance in case of an error

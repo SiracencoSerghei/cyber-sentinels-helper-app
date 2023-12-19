@@ -1,5 +1,6 @@
 import os
 from contacts.classes.AddressBook import AddressBook
+from notes.note_manager import Notes
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.completion import WordCompleter
@@ -10,6 +11,8 @@ from rich.table import Table
 from file_manager.norton_commander import display_directory_contents
 from utils.help import help
 from utils.address_book_functions import add_contact, greeting, good_bye, load_address_book
+from utils.notes_utils import load_notes_from_file, add_note_record
+
 
 # I'm applying the decorator directly, overwriting the function
 sanitize_phone_number = input_errors(sanitize_phone_number)
@@ -28,10 +31,12 @@ class Bot:
     # noinspection PyTypeChecker
     def __init__(self):
         self.__known_commands = (
-            "help", "add", "edit", "find", "delete",
+            "help", "add-contact", "add-note", "add-todo", "edit", "find", "delete",
             "show", "hello", "days-to-birthday", "file-manager")
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
+        self.notesbook = load_notes_from_file()
+        # self.todobook =
         self.session = PromptSession(
             history=FileHistory('history.txt'),
             completer=WordCompleter(self.__known_commands + self.__exit_commands),
@@ -139,6 +144,7 @@ class Bot:
                """
         try:
             book = AddressBook.load_from_file('outputs/address_book.json')
+            notesbook = Notes.load_from_file('outputs/notes.json')
 
         except (FileNotFoundError, EOFError) as e:
             print(f"{RED}Error loading address book: {e}{RESET}")
@@ -161,12 +167,21 @@ class Bot:
                         help()
                     case 'hello':
                         print(f"{BLUE}{greeting()} {RESET}")
-                    case 'add':
+                    case 'add-contact':
                         try:
-                            print(add_contact(self.book, input_data[1], input_data[2]))
+                            print(add_contact(self.book, input_data[1], input_data[2:]))
                         except IndexError:
                             print(f"{RED}You have to put name and phone after add. Example: \n"
                                   f"add <name> <phone>{RESET}")
+                    case 'add-note':
+                        if len(input_data) >= 2:
+                            print(add_note_record(self.notesbook, input_data[1], input_data[2:]))
+                        else:
+                            print("Invalid input. Usage: add-note <title> <note1> <note2> ...")
+
+                    case 'add-todo':
+                        pass
+
                     case 'edit':
                         try:
                             edit_type = input_data[1].lower()
