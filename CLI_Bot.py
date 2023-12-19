@@ -11,7 +11,7 @@ from rich.table import Table
 from file_manager.norton_commander import display_directory_contents
 from utils.help import help
 from utils.address_book_functions import add_contact, greeting, good_bye, load_address_book
-from utils.notes_utils import load_notes_from_file, add_note_record_to_notes
+from utils.notes_utils import load_notes_from_file, add_note_record_to_notes, show_notes
 
 
 # I'm applying the decorator directly, overwriting the function
@@ -32,7 +32,7 @@ class Bot:
     def __init__(self):
         self.__known_commands = (
             "help", "add-contact", "add-note", "add-todo", "edit", "find", "delete",
-            "show", "hello", "days-to-birthday", "file-manager")
+            "show-contact", "show-notes", "show-todos", "hello", "days-to-birthday", "file-manager")
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
         self.notesbook = load_notes_from_file()
@@ -67,7 +67,7 @@ class Bot:
         i = 0
         while i < num_records:
             chunk = records[i:i + chunk_size]
-            print(len(chunk))
+            # print(len(chunk))
             for record in chunk:
                 name = record.name.value
                 phones = "; ".join([str(phone) for phone in record.phones])
@@ -237,12 +237,18 @@ class Bot:
                         except Exception as e:
                             print(f"{RED}Error deleting {delete_type}: {e}{RESET}")
 
-                    case "show":
+                    case "show-contact":
                         try:
                             self.book = AddressBook.load_from_file('outputs/address_book.json')
                             self.showall(int(input_data[1]) if len(input_data) > 1 else None)
 
 
+                        except IndexError:
+                            print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
+                    case "show-notes":
+                        try:
+                            self.notesbook = Notes.load_from_file('outputs/notes.json')
+                            show_notes(self.notesbook, int(input_data[1]) if len(input_data) > 1 else None)
                         except IndexError:
                             print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
 
