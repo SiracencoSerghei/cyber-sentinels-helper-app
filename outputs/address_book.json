@@ -121,12 +121,12 @@
         "note": "Study group tomorrow"
     },
     "William-Hall": {
-        "name": "William-Hall",
+        "name": "William-Wall",
         "phones": [
             "5556667777"
         ],
-        "birthday": "1989-11-08",
-        "email": "william.hall@example.com",
+        "birthday": "1999-01-01",
+        "email": "william.wall@example.com",
         "address": "Germany, Munich, Marienplatz, 30/9",
         "status": "family",
         "note": "Planning a trip"

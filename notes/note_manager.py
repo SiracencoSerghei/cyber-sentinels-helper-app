@@ -14,7 +14,7 @@ class NotesRecord:
                 delete_notes: deleating of notes
             """
     def __init__(self, title, *notes):
-        self.title = Name(title)
+        self.title = title
         if notes is None:
             self.notes=[]
         self.notes = [notes]
@@ -67,17 +67,20 @@ class Notes(UserDict):
         titles = self.data.values
         print("note in search by titles: ", titles)
 
-    def search_note(self,):
-        search_info = input().lower()
+    def search_notes_record(self):
+        search_info = input("Enter the search parameter: ").lower()
+        
         for note in self.data.values():
+            print(note)
+            print(type(note))
             search_by_title = note.title.lower().find(search_info)
-            search_by_notes = str([n.lower() for n in note.notes]).find(search_info)
+            search_by_notes = str([n for n in note.notes]).find(search_info)
             if search_by_title > -1 or search_by_notes > -1:
                 return note.title
 
 
     def delete_note(self):
-        delete_info = input().lower()
+        delete_info = input("Enter the search parameter: ").lower()
         result_list = []
         for note in self.data.values():
             search_by_title = note.title.lower().find(delete_info)

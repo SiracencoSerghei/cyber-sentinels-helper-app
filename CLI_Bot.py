@@ -12,6 +12,7 @@ from file_manager.norton_commander import display_directory_contents
 from utils.help import help
 from utils.address_book_functions import add_contact, greeting, good_bye, load_address_book
 from utils.notes_utils import load_notes_from_file, add_note_record_to_notes, show_notes
+from utils.edit_helper import edit_contact, edit_notes
 
 
 # I'm applying the decorator directly, overwriting the function
@@ -31,8 +32,9 @@ class Bot:
     # noinspection PyTypeChecker
     def __init__(self):
         self.__known_commands = (
-            "help", "add-contact", "add-note", "add-todo", "edit", "find_all", "delete",
-            "show-contact", "show-notes", "show-todos", "hello", "days-to-birthday", "file-manager")
+            "help", "add-contact", "add-note", "add-todo", "edit-contact", "edit-note", "edit-todo",
+            "find_all_in_contacts", "delete", "show-contact", "show-notes", "show-todos", "hello",
+            "days-to-birthday", "file-manager")
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
         self.notesbook = load_notes_from_file()
@@ -158,7 +160,7 @@ class Bot:
             print(f"{YELLOW}Creating a new address book.{RESET}")
             book = AddressBook()  # Creating a new instance
         while True:
-            print(f"{YELLOW}If don't now the commands, enter 'help' please{RESET}")
+            print(f"{YELLOW}If don't know the commands, enter 'help' please{RESET}")
             user_input = self.session.prompt("... ")
             if user_input == "":
                 print(f"{RED}Empty input !!!{RESET}")
@@ -174,7 +176,7 @@ class Bot:
                         help()
                     case 'hello':
                         print(f"{BLUE}{greeting()} {RESET}")
-                    case "find_all":
+                    case "find_all_in_contacts":
                         try:
                             search_param = input_data[1]
                             result = book.find(search_param)
@@ -220,63 +222,68 @@ class Bot:
                     case 'add-todo':
                         pass
 
-                    # case 'edit':
-                    #     try:
-                    #         edit_completer = WordCompleter(["contact", "note", "todolist"])
-                    #         edited_type = self.session.prompt("Enter the type to edit: ", completer=edit_completer)
-                    #         edited_type = input_data[1].lower()
-                    #         if edited_type.lower() == 'contact':
-                    #             search_param = input("Enter the search parameter: ")
-                    #             book.edit_contact(search_param)
-                    #
-                    #         elif edited_type.lower() == 'note':
-                    #             # edit_note()
-                    #             return WordCompleter(["title", "notes"])
-                    #         elif edited_type.lower() == 'todolist':
-                    #             # edit_todolist()
-                    #             return WordCompleter(["title", "tasks"])
-                    #         else:
-                    #             print(f"{RED}Invalid edit type. Supported types: contact, note, todolist{RESET}")
-                    #     except IndexError:
-                    #         print(f"{RED}You need to provide an edit type after 'edit'.{RESET}\n"
-                    #               f"{GREEN}for example: edit contact or note or todo{RESET}")
-                    #
-                    # case "delete":
-                    #     # Delete an entry from the address book, notes, or to-do list.
-                    #     try:
-                    #
-                    #         delete_type = input_data[1].lower()
-                    #         search_param = input(f"Enter the {delete_type} to delete: ")
-                    #         if delete_type == 'contact':
-                    #             result = self.book.find(search_param)
-                    #             delete_method = self.book.del_record
-                    #         elif delete_type == 'note':
-                    #             # Implement your note deletion logic and method here
-                    #             pass
-                    #         elif delete_type == 'todolist':
-                    #             # Implement your to-do list deletion logic and method here
-                    #             pass
-                    #         else:
-                    #             print(f"{RED}Invalid delete type. Supported types: contact, note, todolist{RESET}")
-                    #             return
-                    #
-                    #         if not result:
-                    #             print(f"{RED}No {delete_type} found with the specified {delete_type}{RESET}")
-                    #         else:
-                    #             # Display the matching records and confirm deletion
-                    #             print(f"{GREEN}Matching {delete_type}s:\n{result}{RESET}")
-                    #             confirmation = input(
-                    #                 f"Are you sure you want to delete this {delete_type}? (yes/no): ").lower()
-                    #
-                    #             if confirmation == 'yes':
-                    #                 delete_method(search_param)
-                    #                 print(
-                    #                     f"{GREEN}{delete_type.capitalize()} '{search_param}' "
-                    #                     f"deleted successfully{RESET}")
-                    #             else:
-                    #                 print(f"Deletion of {delete_type} canceled.")
-                    #     except Exception as e:
-                    #         print(f"{RED}Error deleting {delete_type}: {e}{RESET}")
+                    case 'edit-contact':
+                        edit_contact(book)
+                    case 'edit-note':
+                        edit_notes(notesbook)
+
+                    case 'edit':
+                        try:
+                            edit_completer = WordCompleter(["contact", "note", "todolist"])
+                            edited_type = self.session.prompt("Enter the type to edit: ", completer=edit_completer)
+                            edited_type = input_data[1].lower()
+                            if edited_type.lower() == 'contact':
+                                search_param = input("Enter the search parameter: ")
+                                book.edit_contact(search_param)
+
+                            elif edited_type.lower() == 'note':
+                                # edit_note()
+                                return WordCompleter(["title", "notes"])
+                            elif edited_type.lower() == 'todolist':
+                                # edit_todolist()
+                                return WordCompleter(["title", "tasks"])
+                            else:
+                                print(f"{RED}Invalid edit type. Supported types: contact, note, todolist{RESET}")
+                        except IndexError:
+                            print(f"{RED}You need to provide an edit type after 'edit'.{RESET}\n"
+                                  f"{GREEN}for example: edit contact or note or todo{RESET}")
+
+                    case "delete":
+                        # Delete an entry from the address book, notes, or to-do list.
+                        try:
+
+                            delete_type = input_data[1].lower()
+                            search_param = input(f"Enter the {delete_type} to delete: ")
+                            if delete_type == 'contact':
+                                result = self.book.find(search_param)
+                                delete_method = self.book.del_record
+                            elif delete_type == 'note':
+                                # Implement your note deletion logic and method here
+                                pass
+                            elif delete_type == 'todolist':
+                                # Implement your to-do list deletion logic and method here
+                                pass
+                            else:
+                                print(f"{RED}Invalid delete type. Supported types: contact, note, todolist{RESET}")
+                                return
+
+                            if not result:
+                                print(f"{RED}No {delete_type} found with the specified {delete_type}{RESET}")
+                            else:
+                                # Display the matching records and confirm deletion
+                                print(f"{GREEN}Matching {delete_type}s:\n{result}{RESET}")
+                                confirmation = input(
+                                    f"Are you sure you want to delete this {delete_type}? (yes/no): ").lower()
+
+                                if confirmation == 'yes':
+                                    delete_method(search_param)
+                                    print(
+                                        f"{GREEN}{delete_type.capitalize()} '{search_param}' "
+                                        f"deleted successfully{RESET}")
+                                else:
+                                    print(f"Deletion of {delete_type} canceled.")
+                        except Exception as e:
+                            print(f"{RED}Error deleting {delete_type}: {e}{RESET}")
 
 
                     case "days-to-birthday":
