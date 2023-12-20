@@ -7,7 +7,7 @@ class Phone(Field):
     @staticmethod
     def is_valid_phone(value):
         """return boolean from check"""
-        return value.isdigit() and len(value) == 10
+        return value.isdigit() and 15 > len(value) > 10
 
     def __init__(self, value):
         if not Phone.is_valid_phone(value):

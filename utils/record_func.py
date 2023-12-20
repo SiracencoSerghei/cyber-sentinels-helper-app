@@ -34,6 +34,7 @@ def add_phone(record, phone):
         phone (str): Телефонний номер для додавання.
     """
     if not isinstance(phone, Phone):
+        print(phone)
         phone = Phone(phone)
     record.phones.append(phone)
 

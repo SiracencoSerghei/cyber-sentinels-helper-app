@@ -99,9 +99,8 @@ def show_notes(notebook, chunk_size = None):
             title = record[0].value
             notes = "; ".join([str(notes) for notes in record[1]])
             table.add_row(title, notes)
-
-        if chunk_size is not None:
-            table.add_row("=" * 50, "=" * 50)
+            if chunk_size is not None:
+                table.add_row("=" * 50, "=" * 50)
             i += chunk_size
 
         if i < num_records:

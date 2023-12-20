@@ -57,13 +57,16 @@ def add_contact(book, name, *phones):
     contact = book.find_name(name)
     if contact is None:
         contact = Record(name)
-        book.add_record(contact)
     phones = phones[0]
+    print(phones)
     for phone in phones:
         sanitized_phone = sanitize_phone_number(phone)
         if sanitized_phone.isdigit():
             contact.add_phone(sanitized_phone)
         else:
             return f"{RED}Phone {phone} is not valid and not added to {name}{RESET}"
+    print(contact)
+    book.add_record(contact)
     book.save_to_file('outputs/address_book.json')
+    book.save_to_file('outputs/address_book.csv')
     return f"{GREEN}Contact {name} was added successfully!{RESET}"

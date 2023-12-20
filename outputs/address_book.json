@@ -1,6 +1,6 @@
 {
-    "John Doe": {
-        "name": "John Doe",
+    "John-Doe": {
+        "name": "John-Doe",
         "phones": [
             "1234567890"
         ],
@@ -10,8 +10,8 @@
         "status": "work",
         "note": "I have debt $150"
     },
-    "Jane Smith": {
-        "name": "Jane Smith",
+    "Jane-Smith": {
+        "name": "Jane-Smith",
         "phones": [
             "9876543210"
         ],
@@ -21,8 +21,8 @@
         "status": "friends",
         "note": "She has to come 31/12/2023"
     },
-    "Alice Johnson": {
-        "name": "Alice Johnson",
+    "Alice-Johnson": {
+        "name": "Alice-Johnson",
         "phones": [
             "5551234567"
         ],
@@ -32,8 +32,8 @@
         "status": "family",
         "note": "Planning a family reunion"
     },
-    "Bob Williams": {
-        "name": "Bob Williams",
+    "Bob-Williams": {
+        "name": "Bob-Williams",
         "phones": [
             "9998887777"
         ],
@@ -43,8 +43,8 @@
         "status": "work",
         "note": "Discuss project updates"
     },
-    "Eva Davis": {
-        "name": "Eva Davis",
+    "Eva-Davis": {
+        "name": "Eva-Davis",
         "phones": [
             "1112223333"
         ],
@@ -54,8 +54,8 @@
         "status": "neighbor",
         "note": "Borrowed a book"
     },
-    "Michael Lee": {
-        "name": "Michael Lee",
+    "Michael-Lee": {
+        "name": "Michael-Lee",
         "phones": [
             "7778889999"
         ],
@@ -65,8 +65,8 @@
         "status": "classmate",
         "note": "Class reunion soon"
     },
-    "Sophie Miller": {
-        "name": "Sophie Miller",
+    "Sophie-Miller": {
+        "name": "Sophie-Miller",
         "phones": [
             "4445556666"
         ],
@@ -76,8 +76,8 @@
         "status": "friends",
         "note": "Loves hiking"
     },
-    "David Brown": {
-        "name": "David Brown",
+    "David-Brown": {
+        "name": "David-Brown",
         "phones": [
             "6667778888"
         ],
@@ -87,8 +87,8 @@
         "status": "colleague",
         "note": "Discuss budget report"
     },
-    "Olivia White": {
-        "name": "Olivia White",
+    "Olivia-White": {
+        "name": "Olivia-White",
         "phones": [
             "2223334444"
         ],
@@ -98,8 +98,8 @@
         "status": "friends",
         "note": "Movie night this weekend"
     },
-    "Daniel Taylor": {
-        "name": "Daniel Taylor",
+    "Daniel-Taylor": {
+        "name": "Daniel-Taylor",
         "phones": [
             "8889990000"
         ],
@@ -109,8 +109,8 @@
         "status": "neighbor",
         "note": "Shared gardening tips"
     },
-    "Isabella Rodriguez": {
-        "name": "Isabella Rodriguez",
+    "Isabella-Rodriguez": {
+        "name": "Isabella-Rodriguez",
         "phones": [
             "3334445555"
         ],
@@ -120,8 +120,8 @@
         "status": "classmate",
         "note": "Study group tomorrow"
     },
-    "William Hall": {
-        "name": "William Hall",
+    "William-Hall": {
+        "name": "William-Hall",
         "phones": [
             "5556667777"
         ],
@@ -131,8 +131,8 @@
         "status": "family",
         "note": "Planning a trip"
     },
-    "Ava Garcia": {
-        "name": "Ava Garcia",
+    "Ava-Garcia": {
+        "name": "Ava-Garcia",
         "phones": [
             "1112223333"
         ],
@@ -142,8 +142,8 @@
         "status": "colleague",
         "note": "Coffee meeting next week"
     },
-    "Henry King": {
-        "name": "Henry King",
+    "Henry-King": {
+        "name": "Henry-King",
         "phones": [
             "7778889999"
         ],
@@ -153,8 +153,8 @@
         "status": "friends",
         "note": "Sports event on Saturday"
     },
-    "Emily Moore": {
-        "name": "Emily Moore",
+    "Emily-Moore": {
+        "name": "Emily-Moore",
         "phones": [
             "4445556666"
         ],
@@ -164,8 +164,8 @@
         "status": "neighbor",
         "note": "Received a package for you"
     },
-    "Christopher Young": {
-        "name": "Christopher Young",
+    "Christopher-Young": {
+        "name": "Christopher-Young",
         "phones": [
             "6667778888"
         ],
@@ -175,8 +175,8 @@
         "status": "colleague",
         "note": "Meeting at 2 PM"
     },
-    "Sophia Cooper": {
-        "name": "Sophia Cooper",
+    "Sophia-Cooper": {
+        "name": "Sophia-Cooper",
         "phones": [
             "2223334444"
         ],
