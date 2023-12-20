@@ -21,8 +21,18 @@ def greeting():
     Returns:
         str: A greeting message.
     """
-    return ("Hallo! You can open the Address Book, Notes, ToDo List?\n"
-            "OR Play your favorite game Bandera's_Goose")
+    notification = (
+        "Greetings! 🌟 Welcome to Cyber Sentinel's Helper App! 🚀\n\n"
+        "Explore the possibilities at your fingertips:\n"
+        "1. Open the address book and discover your contacts.\n"
+        "2. Dive into your notes and uncover hidden insights.\n"
+        "3. Manage your to-do list and conquer your tasks.\n"
+        "4. Embark on a journey to sort folders in the directory.\n\n"
+        "For a guiding light, type 'help' to reveal the magic commands. ✨"
+    )
+
+
+    return notification
 
 def good_bye():
         """Bid farewell to the user.
