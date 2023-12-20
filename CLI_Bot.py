@@ -31,16 +31,20 @@ class Bot:
     # noinspection PyTypeChecker
     def __init__(self):
         self.__known_commands = (
-            "help", "add-contact", "add-note", "add-todo", "edit", "find", "delete",
+            "help", "add-contact", "add-note", "add-todo", "edit", "find_all", "delete",
             "show-contact", "show-notes", "show-todos", "hello", "days-to-birthday", "file-manager")
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
         self.notesbook = load_notes_from_file()
         # self.todobook =
         self.session = PromptSession(
-            history=FileHistory('history.txt'),
-            completer=WordCompleter(self.__known_commands + self.__exit_commands),
+            history=FileHistory('outputs/history.txt'),
+            # completer=WordCompleter(self.__known_commands + self.__exit_commands),
+            completer=self.get_completer(),
         )
+
+    def get_completer(self):
+        return WordCompleter(self.__known_commands + self.__exit_commands)
 
     @input_errors
     def showall(self, chunk_size = None):
@@ -61,6 +65,8 @@ class Bot:
         table.add_column("Note", style="blue", justify="center", min_width=10, max_width=30)
 
         records = list(self.book.values())
+        # print(records[1].phones)
+        # print(records[1].name)
         num_records = len(records)
         if chunk_size is None or chunk_size > num_records:
             chunk_size = num_records
@@ -91,6 +97,7 @@ class Bot:
                 i = num_records
 
         console.print(table)
+
 
     @input_errors
     def get_phone(self, name):
@@ -167,101 +174,7 @@ class Bot:
                         help()
                     case 'hello':
                         print(f"{BLUE}{greeting()} {RESET}")
-                    case 'add-contact':
-                        try:
-                            print(add_contact(self.book, input_data[1], input_data[2:]))
-                        except IndexError:
-                            print(f"{RED}You have to put name and phone after add. Example: \n"
-                                  f"add <name> <phone>{RESET}")
-                    case 'add-note':
-                        if len(input_data) >= 2:
-                            print(add_note_record_to_notes(self.notesbook, input_data[1], input_data[2:]))
-                        else:
-                            print("Invalid input. Usage: add-note <title> <note1> <note2> ...")
-
-                    case 'add-todo':
-                        pass
-
-                    case 'edit':
-                        try:
-                            edit_type = input_data[1].lower()
-                            if edit_type == 'contact':
-                                search_param = input("Enter the search parameter: ")
-                                book.edit_contact(search_param)
-                            elif edit_type == 'note':
-                                # edit_note()
-                                pass
-                            elif edit_type == 'todolist':
-                                # edit_todolist()
-                                pass
-                            else:
-                                print(f"{RED}Invalid edit type. Supported types: contact, note, todolist{RESET}")
-                        except IndexError:
-                            print(f"{RED}You need to provide an edit type after 'edit'.{RESET}\n"
-                                  f"{GREEN}for example: edit contact or note or todo{RESET}")
-
-                    case "delete":
-                        # Delete an entry from the address book, notes, or to-do list.
-                        try:
-
-                            delete_type = input_data[1].lower()
-                            search_param = input(f"Enter the {delete_type} to delete: ")
-                            if delete_type == 'contact':
-                                result = self.book.find(search_param)
-                                delete_method = self.book.del_record
-                            elif delete_type == 'note':
-                                # Implement your note deletion logic and method here
-                                pass
-                            elif delete_type == 'todolist':
-                                # Implement your to-do list deletion logic and method here
-                                pass
-                            else:
-                                print(f"{RED}Invalid delete type. Supported types: contact, note, todolist{RESET}")
-                                return
-
-                            if not result:
-                                print(f"{RED}No {delete_type} found with the specified {delete_type}{RESET}")
-                            else:
-                                # Display the matching records and confirm deletion
-                                print(f"{GREEN}Matching {delete_type}s:\n{result}{RESET}")
-                                confirmation = input(
-                                    f"Are you sure you want to delete this {delete_type}? (yes/no): ").lower()
-
-                                if confirmation == 'yes':
-                                    delete_method(search_param)
-                                    print(
-                                        f"{GREEN}{delete_type.capitalize()} '{search_param}' "
-                                        f"deleted successfully{RESET}")
-                                else:
-                                    print(f"Deletion of {delete_type} canceled.")
-                        except Exception as e:
-                            print(f"{RED}Error deleting {delete_type}: {e}{RESET}")
-
-                    case "show-contact":
-                        try:
-                            self.book = AddressBook.load_from_file('outputs/address_book.json')
-                            self.showall(int(input_data[1]) if len(input_data) > 1 else None)
-
-
-                        except IndexError:
-                            print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
-                    case "show-notes":
-                        try:
-                            self.notesbook = Notes.load_from_file('outputs/notes.json')
-                            show_notes(self.notesbook, int(input_data[1]) if len(input_data) > 1 else None)
-                        except IndexError:
-                            print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
-
-                    case "days-to-birthday":
-                        if len(input_data) < 2:
-                            print(
-                                f"{RED}You need to provide a name after 'days-to-birthday'. "
-                                f"Example: days-to-birthday <name>{RESET}"
-                            )
-                        else:
-                            print(self.days_to_birthday(input_data[1]))
-
-                    case "find":
+                    case "find_all":
                         try:
                             search_param = input_data[1]
                             result = book.find(search_param)
@@ -277,6 +190,105 @@ class Bot:
                         except Exception as e:
                             # print(f"{RED}Error: '{e}'{RESET}")
                             pass
+                    case "show-contact":
+                        try:
+                            self.book = AddressBook.load_from_file('outputs/address_book.json')
+                            self.showall(int(input_data[1]) if len(input_data) > 1 else None)
+
+
+                        except IndexError:
+                            print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
+                    case "show-notes":
+                        try:
+                            self.notesbook = Notes.load_from_file('outputs/notes.json')
+                            show_notes(self.notesbook, int(input_data[1]) if len(input_data) > 1 else None)
+                        except IndexError:
+                            print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
+
+                    case 'add-contact':
+                        try:
+                            print(add_contact(self.book, input_data[1], input_data[2:]))
+                        except IndexError:
+                            print(f"{RED}You have to put name(or name-surname) and phone(s) after add-contact. Example: \n"
+                                  f"add-contact <name> <phone1> <phone2> ...{RESET}")
+                    case 'add-note':
+                        if len(input_data) >= 2:
+                            print(add_note_record_to_notes(self.notesbook, input_data[1], input_data[2:]))
+                        else:
+                            print("Invalid input. Usage: add-note <title> <note1> <note2> ...")
+
+                    case 'add-todo':
+                        pass
+
+                    # case 'edit':
+                    #     try:
+                    #         edit_completer = WordCompleter(["contact", "note", "todolist"])
+                    #         edited_type = self.session.prompt("Enter the type to edit: ", completer=edit_completer)
+                    #         edited_type = input_data[1].lower()
+                    #         if edited_type.lower() == 'contact':
+                    #             search_param = input("Enter the search parameter: ")
+                    #             book.edit_contact(search_param)
+                    #
+                    #         elif edited_type.lower() == 'note':
+                    #             # edit_note()
+                    #             return WordCompleter(["title", "notes"])
+                    #         elif edited_type.lower() == 'todolist':
+                    #             # edit_todolist()
+                    #             return WordCompleter(["title", "tasks"])
+                    #         else:
+                    #             print(f"{RED}Invalid edit type. Supported types: contact, note, todolist{RESET}")
+                    #     except IndexError:
+                    #         print(f"{RED}You need to provide an edit type after 'edit'.{RESET}\n"
+                    #               f"{GREEN}for example: edit contact or note or todo{RESET}")
+                    #
+                    # case "delete":
+                    #     # Delete an entry from the address book, notes, or to-do list.
+                    #     try:
+                    #
+                    #         delete_type = input_data[1].lower()
+                    #         search_param = input(f"Enter the {delete_type} to delete: ")
+                    #         if delete_type == 'contact':
+                    #             result = self.book.find(search_param)
+                    #             delete_method = self.book.del_record
+                    #         elif delete_type == 'note':
+                    #             # Implement your note deletion logic and method here
+                    #             pass
+                    #         elif delete_type == 'todolist':
+                    #             # Implement your to-do list deletion logic and method here
+                    #             pass
+                    #         else:
+                    #             print(f"{RED}Invalid delete type. Supported types: contact, note, todolist{RESET}")
+                    #             return
+                    #
+                    #         if not result:
+                    #             print(f"{RED}No {delete_type} found with the specified {delete_type}{RESET}")
+                    #         else:
+                    #             # Display the matching records and confirm deletion
+                    #             print(f"{GREEN}Matching {delete_type}s:\n{result}{RESET}")
+                    #             confirmation = input(
+                    #                 f"Are you sure you want to delete this {delete_type}? (yes/no): ").lower()
+                    #
+                    #             if confirmation == 'yes':
+                    #                 delete_method(search_param)
+                    #                 print(
+                    #                     f"{GREEN}{delete_type.capitalize()} '{search_param}' "
+                    #                     f"deleted successfully{RESET}")
+                    #             else:
+                    #                 print(f"Deletion of {delete_type} canceled.")
+                    #     except Exception as e:
+                    #         print(f"{RED}Error deleting {delete_type}: {e}{RESET}")
+
+
+                    case "days-to-birthday":
+                        if len(input_data) < 2:
+                            print(
+                                f"{RED}You need to provide a name after 'days-to-birthday'. "
+                                f"Example: days-to-birthday <name>{RESET}"
+                            )
+                        else:
+                            print(self.days_to_birthday(input_data[1]))
+
+
             else:
                 print(f"{RED}Don't know this command{RESET}")
 

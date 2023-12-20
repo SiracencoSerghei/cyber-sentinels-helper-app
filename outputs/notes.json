@@ -3,10 +3,14 @@
         "title": "Go_to_shopping",
         "notes": [
             [
-                "Bread Salt Coffee Wine Chips Cheese"
-            ],
-            [
-                "Beer Amaretto Capricciosa"
+                [
+                    [
+                        "Bread Salt Coffee Wine Chips Cheese"
+                    ],
+                    [
+                        "Beer Amaretto Capricciosa"
+                    ]
+                ]
             ]
         ]
     },
@@ -14,7 +18,19 @@
         "title": "Tools",
         "notes": [
             [
-                "Weel, battery, filter"
+                [
+                    [
+                        "Weel, battery, filter"
+                    ]
+                ]
+            ]
+        ]
+    },
+    "Holiday-winter": {
+        "title": "Holiday-winter",
+        "notes": [
+            [
+                "ski, ticket_to_cinema christmas-tree"
             ]
         ]
     }
