@@ -96,7 +96,7 @@ def show_notes(notebook, chunk_size = None):
         # print("CHANKK:  ", chunk)
         for record in chunk:
             notes_to_print = []
-            title = record[0].value
+            title = record[0]
             for note in record[1]:
                 notes_to_print.extend(note)
             notes = ", ".join([str(notes) for notes in notes_to_print])

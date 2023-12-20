@@ -69,14 +69,59 @@ class Notes(UserDict):
 
     def search_notes_record(self):
         search_info = input("Enter the search parameter: ").lower()
-        
+        result_list = []
         for note in self.data.values():
-            print(note)
-            print(type(note))
             search_by_title = note.title.lower().find(search_info)
             search_by_notes = str([n for n in note.notes]).find(search_info)
             if search_by_title > -1 or search_by_notes > -1:
-                return note.title
+                result_list.append(note)
+        dict_with_number = dict(zip([i + 1 for i in range(len(result_list))], [i.title for i in result_list]))
+        print(dict_with_number)
+
+        try:
+            choice = int(input('Please choose note number to edit...   '))
+
+            for key, value in dict_with_number.items():
+                if key == choice:
+                    record = self.data[value]
+                    print(record)
+                    # del self.data[value]
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
+        #
+        # chosen_record_for_edit =result_list[choice-1].title
+        # print("SXZ/ ", chosen_record_for_edit)
+        #
+        # print(type(chosen_record_for_edit))
+        #
+        # choice_edit_part_of_record = int(input('  Please Enter number of part to change:\n'
+        #                                        '    1. change title\n'
+        #                                        '    2. change notes completely\n'
+        #                                        '    3. only add to notes\n'))
+        # if choice_edit_part_of_record == 1:
+        #     old_title = self.data[chosen_record_for_edit]
+        #     print(type(old_title))
+        #     print(f" Old title is {old_title.title}")
+        #     to_change = input(" Enter new title: ")
+        #     print("to_chang: ", to_change)
+        #     notes = self.data[chosen_record_for_edit]
+        #     print(type(notes))
+        #     notes = notes.notes[0][0][:]
+        #
+        #     print("notes: ", notes)
+        #     self.data[chosen_record_for_edit] = NotesRecord(to_change, notes)
+        #
+
+
+
+        # for note in self.data.values():
+        #     print(note)
+        #     print(type(note))
+        #     search_by_title = note.title.lower().find(search_info)
+        #     search_by_notes = str([n for n in note.notes]).find(search_info)
+        #     if search_by_title > -1 or search_by_notes > -1:
+        #         return note.title
 
 
     def delete_note(self):
@@ -140,3 +185,36 @@ class Notes(UserDict):
         except Exception as e:
             print(f'Error loading notes from {filename}: {e}')
             return Notes()  # Return a new instance in case of an error
+        
+        
+    #     class Notes(UserDict): 
+    # def add_note_record(self, note_record: NotesRecord): 
+    #     self.data[note_record.title] = note_record 
+    #     return self.data 
+ 
+    # def search_note(self): 
+    #     search_info = input().lower() 
+    #     for note in self.data.values(): 
+    #         search_by_title = note.title.lower().find(search_info) 
+    #         search_by_notes = str([n.lower() for n in note.notes]).find(search_info) 
+    #         if search_by_title > -1 or search_by_notes > -1: 
+    #             print(note.title) 
+ 
+    # def delete_note(self): 
+    #     delete_info = input().lower() 
+    #     result_list = [] 
+    #     for note in self.data.values(): 
+    #         search_by_title = note.title.lower().find(delete_info) 
+    #         search_by_notes = str([n.lower() for n in note.notes]).find(delete_info) 
+    #         if search_by_title > -1 or search_by_notes > -1: 
+    #             result_list.append(note) 
+    #     dict_with_number = dict(zip([i+1 for i in range(len(result_list))], [i.title for i in result_list])) 
+    #     print(dict_with_number) 
+    #     print('Please choose note number to delete?') 
+    #     try: 
+    #         delete_i = int(input()) 
+    #         for key, value in dict_with_number.items(): 
+    #             if key == delete_i: 
+    #                 del self.data[value] 
+    #     except ValueError: 
+    #         print("Invalid input. Please enter a valid number.")

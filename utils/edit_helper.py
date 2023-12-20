@@ -5,9 +5,7 @@ def edit_contact(book):
     book.edit_contact(search_param)
 
 def edit_notes(notesbook: object):
-    result = notesbook.search_notes_record()
-    print(result)
-    print(type(result))
+    notesbook.search_notes_record()
 
 
 
