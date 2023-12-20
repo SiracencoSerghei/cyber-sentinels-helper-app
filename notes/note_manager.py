@@ -132,7 +132,7 @@ class Notes(UserDict):
                 notes = value["notes"]
                 record =  NotesRecord(title, notes)
                 notesbook.add_note_record(record)
-            print(f'Notes loaded from {filename} successfully.')
+            # print(f'Notes loaded from {filename} successfully.')
             return notesbook
         except Exception as e:
             print(f'Error loading notes from {filename}: {e}')
