@@ -84,8 +84,16 @@ class Notes(UserDict):
             for key, value in dict_with_number.items():
                 if key == choice:
                     record = self.data[value]
-                    print(record)
+            
+                    # print(record.title)
+                    new_title = input('Enter new title: ')
+                    # record.change_title(new_title)
+                    record.title = new_title
+                    print(self.data.keys())
+                    print(record.title)
+            self.save_to_file_notes('outputs/notes.json')
                     # del self.data[value]
+
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
@@ -153,7 +161,7 @@ class Notes(UserDict):
         serializable_data = {}
         for key, record in notesbook.items():
             serializable_data[str(key)] = {
-                "title": record.title.value,
+                "title": record.title,
                 "notes": record.notes
             }
         return serializable_data
