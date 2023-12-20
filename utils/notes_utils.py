@@ -93,11 +93,13 @@ def show_notes(notebook, chunk_size = None):
     i = 0
     while num_records > i:
         chunk = list_notes[i:i + chunk_size]  # list_note[0:len(list_notes)]
-        print("CHANKK:  ", chunk)
+        # print("CHANKK:  ", chunk)
         for record in chunk:
             notes_to_print = []
             title = record[0].value
-            notes = "; ".join([str(notes) for notes in record[1]])
+            for note in record[1]:
+                notes_to_print.extend(note)
+            notes = ", ".join([str(notes) for notes in notes_to_print])
             table.add_row(title, notes)
 
         if chunk_size is not None:
@@ -110,6 +112,5 @@ def show_notes(notebook, chunk_size = None):
             input(f"{PINK}Press Enter to show the next chunk...{RESET}")
         else:
             i = num_records
-    #
     console.print(table)
 
