@@ -37,7 +37,7 @@ def add_note_record_to_notes(notesbook, title, *notes):
     # notes =notes[0]
     # notes1 = ' '.join(notes)
     # notes_list.append(notes[0])
-    record = NotesRecord(title, notes)
+    record = NotesRecord(title, notes=None)
     if record is None:
         record = NotesRecord()
     notesbook.add_note_record(record)
