@@ -1,45 +1,14 @@
 {
-    "Go_to_shopping": {
-        "title": "Vicky",
-        "notes": [
-            [
-                [
-                    [
-                        [
-                            [
-                                [
-                                    [
-                                        "Bread Salt Coffee Wine Chips Cheese"
-                                    ],
-                                    [
-                                        "Beer Amaretto Capricciosa"
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ]
-    },
     "Go_to_shopping1": {
         "title": "Go_to_shopping1",
         "notes": [
             [
                 [
                     [
-                        [
-                            [
-                                [
-                                    [
-                                        "Bread Salt Coffee Wine Chips Cheese"
-                                    ],
-                                    [
-                                        "Beer Amaretto Capricciosa"
-                                    ]
-                                ]
-                            ]
-                        ]
+                        "Bread Salt Coffee Wine Chips Cheese"
+                    ],
+                    [
+                        "Beer Amaretto Capricciosa"
                     ]
                 ]
             ]
@@ -51,15 +20,7 @@
             [
                 [
                     [
-                        [
-                            [
-                                [
-                                    [
-                                        "Weel, battery, filter"
-                                    ]
-                                ]
-                            ]
-                        ]
+                        "Weel, battery, filter"
                     ]
                 ]
             ]
@@ -71,15 +32,22 @@
             [
                 [
                     [
-                        [
-                            [
-                                [
-                                    [
-                                        "ski, ticket_to_cinema christmas-tree"
-                                    ]
-                                ]
-                            ]
-                        ]
+                        "ski, ticket_to_cinema christmas-tree"
+                    ]
+                ]
+            ]
+        ]
+    },
+    "Grande": {
+        "title": "Grande",
+        "notes": [
+            [
+                [
+                    [
+                        "Bread Salt Coffee Wine Chips Cheese"
+                    ],
+                    [
+                        "Beer Amaretto Capricciosa"
                     ]
                 ]
             ]
