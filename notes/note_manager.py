@@ -98,12 +98,15 @@ class Notes(UserDict):
                     elif choice_edit_part_of_record == 2:
                         wrong_part = input('Please enter part to change: ')
                         new_part = input('Please enter correct part: ')
+                        is_wrong_in_record = False
                         for note in record.notes:
                             if wrong_part in note:
+                                print("YES")
                                 new_note = note.replace(wrong_part, new_part)
                                 record.notes[record.notes.index(note)] = new_note
-                            else:
-                                print(f'Notes have no letters {wrong_part}. Please try again.')
+                                is_wrong_in_record = True
+                        if not is_wrong_in_record:
+                            print(f'Notes have no letters {wrong_part}. Please try again.')
                     
                     elif choice_edit_part_of_record == 3:
                         new_note = input('Please enter note to add: ')
