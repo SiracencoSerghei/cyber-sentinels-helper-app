@@ -333,19 +333,19 @@ class AddressBook(UserDict):
     def delete_contact(self):
         delete_info = input("Enter the search parameter: ").lower()
         result_list = []
-        for note in self.data.values():
-            search_by_title = note.title.lower().find(delete_info)
-            search_by_notes = str([n.lower() for n in note.notes]).find(delete_info)
-            if search_by_title > -1 or search_by_notes > -1:
-                result_list.append(note)
-        dict_with_number = dict(zip([i+1 for i in range(len(result_list))], [i.title for i in result_list]))
+        for record in self.data.values():
+            search_by_name = record.name.value.lower().find(delete_info)
+            search_by_phones = str([p.value.lower() for p in record.phones]).find(delete_info)
+            if search_by_name > -1 or search_by_phones > -1:
+                result_list.append(record)
+        dict_with_number = dict(zip([i+1 for i in range(len(result_list))], [i.name.value for i in result_list]))
         print(dict_with_number)
-        delete_i = int(input('Please choose note number to delete? '))
+        delete_i = int(input('Please choose contact number to delete? '))
         for key, value in dict_with_number.items():
             if key == delete_i:
                 del self.data[value]
         
-        self.save_to_file_notes('outputs/notes.json')
+        self.save_to_file('outputs/address_book.json')
 
 
 

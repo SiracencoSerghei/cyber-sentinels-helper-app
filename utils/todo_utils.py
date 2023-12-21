@@ -63,8 +63,8 @@ def show_todo(todobook, chunk_size = None):
             tags = ", ".join([str(tag) for tag in record[4]])
             table.add_row(task, begin, end, status, tags)
             if chunk_size is not None:
-                table.add_row("-" * 50, "-" * 50)
-            i += chunk_size
+                i += chunk_size
+            table.add_row("-" * 50, "-" * 50, "-" * 50, "-" * 50, "-" * 50, style="#5cd15a")
 
         if i < num_records:
             # Если chunk_size указано и есть еще записи, ожидаем Enter для продолжения

@@ -22,7 +22,7 @@ def load_notes_from_file():
         return Notes()  # Creating a new instance
 
 @input_errors
-def add_note_record_to_notes(notesbook, title, *notes):
+def add_note_record_to_notes(notesbook, title, notes=None):
     """Add a note to the notes book.
 
     Args:
@@ -37,11 +37,10 @@ def add_note_record_to_notes(notesbook, title, *notes):
     # notes =notes[0]
     # notes1 = ' '.join(notes)
     # notes_list.append(notes[0])
-    record = NotesRecord(title, notes=None)
+    record = NotesRecord(title, notes)
     if record is None:
         record = NotesRecord()
     notesbook.add_note_record(record)
-
     notesbook.save_to_file_notes('outputs/notes.json')
     return f"{GREEN}Note {title} was added successfully!{RESET}"
 
