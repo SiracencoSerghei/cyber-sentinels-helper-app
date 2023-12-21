@@ -13,11 +13,12 @@ class NotesRecord:
                 add_notes: adding of notes to Notes
                 delete_notes: deleating of notes
             """
-    def __init__(self, title, *notes):
+    def __init__(self, title, notes=None):
         self.title = title
-        if notes is None:
-            self.notes=[]
-        self.notes = [notes]
+        self.notes = list(notes)
+        # if notes is None:
+        #     self.notes=[]
+        # self.notes = [notes]
 
     def add_notes(self, note):
         self.notes.append(note)
@@ -97,16 +98,12 @@ class Notes(UserDict):
                     elif choice_edit_part_of_record == 2:
                         wrong_part = input('Please enter part to change: ')
                         new_part = input('Please enter correct part: ')
-                        for note1 in record.notes:
-                            for note2 in note1:
-                                for note3 in note2:
-                                    for note in note3:
-                                        if wrong_part in note:
-                                            new_note = note.replace(wrong_part, new_part)
-                                            print(new_note)
-                                            # record.notes[record.notes.index(note)] = new_note
-                                        else:
-                                            print(f'Notes have no letters {wrong_part}. Please try again.')
+                        for note in record.notes:
+                            if wrong_part in note:
+                                new_note = note.replace(wrong_part, new_part)
+                                record.notes[record.notes.index(note)] = new_note
+                            else:
+                                print(f'Notes have no letters {wrong_part}. Please try again.')
                     
                     elif choice_edit_part_of_record == 3:
                         new_note = input('Please enter note to add: ')

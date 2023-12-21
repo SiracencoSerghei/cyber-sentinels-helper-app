@@ -1,21 +1,29 @@
 {
     "Go_to_shopping1": {
         "title": "Go_to_shopping1",
-        "notes": [[ "Bread Salt Coffee Wine Chips Cheese"], ["Beer Amaretto Capricciosa"]]
+        "notes": [
+            "Bread Salt Coffee Wine Chips Cheese",
+            "Beer Amaretto Capricciosa"
+        ]
     },
-
-    "Tools": {
-        "title": "Tools",
-        "notes": [[ "Weel, battery, filter" ]]
-    },
-
     "Holiday-winter": {
         "title": "Holiday-winter",
-        "notes": [["ski, ticket_to_cinema christmas-tree"]]
+        "notes": [
+            "ski, ticket_to_theater christmas-tree"
+        ]
     },
-
-    "Grande": {
-        "title": "Grande",
-        "notes": [[ "Bread Salt Coffee Wine Chips Cheese"], ["Beer Amaretto Capricciosa"]]
+    "Tool": {
+        "title": "Tool",
+        "notes": [
+            "Weel, battery, filter",
+            "nails"
+        ]
+    },
+    "Gra": {
+        "title": "Gra",
+        "notes": [
+            "Bread Salt Coffee Wine Chips Cheese",
+            "Beer Amaretto Capricciosa"
+        ]
     }
 }
