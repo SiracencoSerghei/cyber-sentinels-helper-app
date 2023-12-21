@@ -191,7 +191,7 @@
         "phones": [
             "0460227020"
         ],
-        "birthday": null,
+        "birthday": "1970-12-31",
         "email": "sergio@examples.com",
         "address": null,
         "status": null,
@@ -204,7 +204,7 @@
         ],
         "birthday": null,
         "email": null,
-        "address": null,
+        "address": "Danmark 8600 S\u00f8ndergade 15",
         "status": null,
         "note": null
     }
