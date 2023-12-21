@@ -13,11 +13,12 @@ class NotesRecord:
                 add_notes: adding of notes to Notes
                 delete_notes: deleating of notes
             """
-    def __init__(self, title, *notes):
+    def __init__(self, title, notes=None):
         self.title = title
-        if notes is None:
-            self.notes=[]
-        self.notes = [notes]
+        self.notes = list(notes)
+        # if notes is None:
+        #     self.notes=[]
+        # self.notes = [notes]
 
     def add_notes(self, note):
         self.notes.append(note)
@@ -84,15 +85,32 @@ class Notes(UserDict):
             for key, value in dict_with_number.items():
                 if key == choice:
                     record = self.data[value]
-            
-                    # print(record.title)
-                    new_title = input('Enter new title: ')
-                    # record.change_title(new_title)
-                    record.title = new_title
-                    self.data[new_title] = self.data.pop(value)
-            
+                    choice_edit_part_of_record = int(input('  Please Enter number of part to change:\n'
+                                               '    1. change title\n'
+                                               '    2. change notes completely\n'
+                                               '    3. only add to notes\n'))
+                
+                    if choice_edit_part_of_record == 1:
+                        new_title = input('Enter new title: ')
+                        record.title = new_title
+                        self.data[new_title] = self.data.pop(value)
+                    
+                    elif choice_edit_part_of_record == 2:
+                        wrong_part = input('Please enter part to change: ')
+                        new_part = input('Please enter correct part: ')
+                        for note in record.notes:
+                            if wrong_part in note:
+                                new_note = note.replace(wrong_part, new_part)
+                                record.notes[record.notes.index(note)] = new_note
+                            else:
+                                print(f'Notes have no letters {wrong_part}. Please try again.')
+                    
+                    elif choice_edit_part_of_record == 3:
+                        new_note = input('Please enter note to add: ')
+                        record.notes.append(new_note)
+
+
             self.save_to_file_notes('outputs/notes.json')
-                    # del self.data[value]
 
         except ValueError:
             print("Invalid input. Please enter a valid number.")
