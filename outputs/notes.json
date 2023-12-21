@@ -1,14 +1,22 @@
 {
-    "Buy_some_food": {
-        "task": "Buy_some_food",
-        "begin date": "2023-12-13",
-        "end date": "20231217",
-        "status": [
-            "Done",
-            [
-                "food"
-            ]
-        ],
-        "tags": []
-    }
+    "Go_to_shopping1": {
+        "title": "Go_to_shopping1",
+        "notes": [
+            "Bread Salt Coffee Wine Chips Cheese",
+            "Beer Amaretto Capricciosa"
+        ]
+    },
+    "Tools": {
+        "title": "Tools",
+        "notes": [
+            "Weel, battery, filter"
+        ]
+    },
+    "Grande": {
+        "title": "Grande",
+        "notes": [
+            "Bread Salt Coffee Wine Chips Cheese",
+            "Beer Amaretto Capricciosa"
+        ]
+    }
 }

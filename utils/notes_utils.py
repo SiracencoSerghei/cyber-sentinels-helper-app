@@ -33,11 +33,11 @@ def add_note_record_to_notes(notesbook, title, *notes):
     Returns:
         str: A message indicating the result of the operation.
     """
-    notes_list = []
-    notes =notes[0]
-    notes1 = ' '.join(notes)
-    notes_list.append(notes1)
-    record = NotesRecord(title, notes1)
+    # notes_list = []
+    # notes =notes[0]
+    # notes1 = ' '.join(notes)
+    # notes_list.append(notes[0])
+    record = NotesRecord(title, notes)
     if record is None:
         record = NotesRecord()
     notesbook.add_note_record(record)
@@ -85,7 +85,8 @@ def show_notes(notebook, chunk_size = None):
     table.add_column("Notes", style="blue", justify="center", min_width=10, max_width=50)
     list_notes = []
     for title, value in notebook.data.items():
-        notes = value.notes[0][0]
+        # notes = value.notes[0][0]
+        notes = value.notes
         list_notes.append((title,notes))
     num_records = len(list_notes)
     if chunk_size is None or chunk_size > num_records:
@@ -95,11 +96,13 @@ def show_notes(notebook, chunk_size = None):
         chunk = list_notes[i:i + chunk_size]  # list_note[0:len(list_notes)]
         # print("CHANKK:  ", chunk)
         for record in chunk:
-            notes_to_print = []
             title = record[0]
-            for note in record[1]:
-                notes_to_print.extend(note)
-            notes = ", ".join([str(notes) for notes in notes_to_print])
+            # notes_to_print = []
+            # notes = record[1]
+
+            # for note in record[1]:
+            #     notes_to_print.extend(note)
+            notes = ", ".join([str(notes) for notes in record[1]])
             table.add_row(title, notes)
             if chunk_size is not None:
                 table.add_row("=" * 50, "=" * 50)
