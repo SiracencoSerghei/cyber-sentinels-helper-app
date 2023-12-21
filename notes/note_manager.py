@@ -148,7 +148,60 @@ class Notes(UserDict):
         #     search_by_notes = str([n for n in note.notes]).find(search_info)
         #     if search_by_title > -1 or search_by_notes > -1:
         #         return note.title
+            
+    # def find(self, param):
+    #     """
+    #     Find records that match the given parameter.
 
+    #     Args:
+    #         param (str): The search parameter.
+
+    #     Returns:
+    #         str: A string containing the matching records, separated by newline.
+
+    #     Note:
+    #         If the search parameter is less than 3 characters, it returns an error message.
+    #     """
+    #     if len(param) < 3:
+    #         return "Sorry, the search parameter must be at least 3 characters."
+
+    #     result = []
+
+    #     for i, record in enumerate(self.values()):
+
+    #         if param.lower() in record.title.lower():
+    #             result.append(record.title)
+    #             result.append('=' * 30)
+    #         elif param.lower():
+    #             matching_notes = [note for note in record.notes if param in note]
+    #             if matching_notes:
+    #                 result.append(record.title)
+    #                 result.append('=' * 30)
+
+    #     if not result:
+    #         return "No records found for the given parameter."
+
+    #     print(result)
+    #     return '\n'.join(result)
+
+    # def del_record(self, name_to_delete):
+    #     """Delete a record from the notes book.
+
+    #     Args:
+    #         name_to_delete (str): The name of the record to delete.
+
+    #     Returns:
+    #         None
+    #     """
+    #     try:
+    #         if name_to_delete in self.data:
+    #             del self.data[name_to_delete]
+    #             self.save_to_file('outputs/notes.json')  # Save changes to file
+    #             print(f"Note '{name_to_delete}' deleted successfully")
+    #         else:
+    #             print(f"No note found with the name {name_to_delete}")
+    #     except Exception as e:
+    #         print(f"Error deleting note: {name_to_delete}")
 
     def delete_note(self):
         delete_info = input("Enter the search parameter: ").lower()
@@ -160,11 +213,12 @@ class Notes(UserDict):
                 result_list.append(note)
         dict_with_number = dict(zip([i+1 for i in range(len(result_list))], [i.title for i in result_list]))
         print(dict_with_number)
-        print('Please choose note number to delete?')
-        delete_i = int(input())
+        delete_i = int(input('Please choose note number to delete? '))
         for key, value in dict_with_number.items():
             if key == delete_i:
                 del self.data[value]
+        
+        self.save_to_file_notes('outputs/notes.json')
 
     @staticmethod
     def convert_to_serializable(notesbook):
