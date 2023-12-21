@@ -7,5 +7,7 @@ def edit_contact(book):
 def edit_notes(notesbook: object):
     notesbook.search_notes_record()
 
+def edit_todo_list(todobook):
+    todobook.edit_todo()
 
 

@@ -1,6 +1,7 @@
 import os
 from contacts.classes.AddressBook import AddressBook
 from notes.note_manager import Notes
+from todo.todo_manager import ToDoBook
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
 from prompt_toolkit.completion import WordCompleter
@@ -12,7 +13,8 @@ from file_manager.norton_commander import display_directory_contents
 from utils.help import help
 from utils.address_book_functions import add_contact, greeting, good_bye, load_address_book
 from utils.notes_utils import load_notes_from_file, add_note_record_to_notes, show_notes
-from utils.edit_helper import edit_contact, edit_notes
+from utils.todo_utils import load_todo_from_file, add_todo_record_to_file, show_todo
+from utils.edit_helper import edit_contact, edit_notes, edit_todo_list
 
 
 # I'm applying the decorator directly, overwriting the function
@@ -38,7 +40,7 @@ class Bot:
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
         self.notesbook = load_notes_from_file()
-        # self.todobook =
+        self.todobook = load_todo_from_file()
         self.session = PromptSession(
             history=FileHistory('outputs/history.txt'),
             # completer=WordCompleter(self.__known_commands + self.__exit_commands),
@@ -196,14 +198,20 @@ class Bot:
                         try:
                             self.book = AddressBook.load_from_file('outputs/address_book.json')
                             self.showall(int(input_data[1]) if len(input_data) > 1 else None)
-
-
                         except IndexError:
                             print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
+
                     case "show-notes":
                         try:
                             self.notesbook = Notes.load_from_file('outputs/notes.json')
                             show_notes(self.notesbook, int(input_data[1]) if len(input_data) > 1 else None)
+                        except IndexError:
+                            print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
+
+                    case "show-todos":
+                        try:
+                            self.todobook = ToDoBook.load_from_file('outputs/todo.json')
+                            show_todo(self.todobook, int(input_data[1]) if len(input_data) > 1 else None)
                         except IndexError:
                             print(f"{RED}You have to put correct chunk size. Example: \nshow <chunk size>{RESET}")
 
@@ -220,12 +228,19 @@ class Bot:
                             print("Invalid input. Usage: add-note <title> <note1> <note2> ...")
 
                     case 'add-todo':
-                        pass
+                        if len(input_data) >= 6:
+                            print(add_todo_record_to_file(self.todobook, input_data[1], input_data[2], input_data[3], input_data[4], input_data[5:]))
+                        else:
+                            print("Invalid input. Usage: add-todo <title> <begin date> <end date> <status> <tags> ...")
 
                     case 'edit-contact':
                         edit_contact(book)
+
                     case 'edit-note':
                         edit_notes(notesbook)
+
+                    case 'edit-todo':
+                        edit_todo_list(self.todobook)
 
                     case 'edit':
                         try:
