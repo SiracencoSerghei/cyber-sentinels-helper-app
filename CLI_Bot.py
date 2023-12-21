@@ -263,12 +263,16 @@ class Bot:
                             print(f"{RED}You need to provide an edit type after 'edit'.{RESET}\n"
                                   f"{GREEN}for example: edit contact or note or todo{RESET}")
                             
+                    case 'delete-contact':
+                        self.book.delete_contact()
+                    
                     case 'delete-note':
                         self.notesbook.delete_note()
 
                     case 'delete-todo':
                         self.todobook.delete_task()
                     
+
 
                     # case "delete_contact":
                     #     # Delete an entry from the address book, notes, or to-do list.
