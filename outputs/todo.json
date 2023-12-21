@@ -9,14 +9,13 @@
             "store"
         ]
     },
-    "Buy_food": {
-        "task": "Buy_food",
-        "begin date": "2023-12-13",
+    "Get_my_nails_done": {
+        "task": "Get_my_nails_done",
+        "begin date": "2023-12-17",
         "end date": "2023-12-28",
         "status": "In_progress",
         "tags": [
-            "food",
-            "market"
+            "beauty"
         ]
     }
 }
