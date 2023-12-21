@@ -120,7 +120,7 @@
         "status": "classmate",
         "note": "Study group tomorrow"
     },
-    "William-Hall": {
+    "William-Wall": {
         "name": "William-Wall",
         "phones": [
             "5556667777"
@@ -201,18 +201,6 @@
         "name": "Vasilii",
         "phones": [
             "1234567890"
-        ],
-        "birthday": null,
-        "email": null,
-        "address": null,
-        "status": null,
-        "note": null
-    },
-    "Vica": {
-        "name": "Vica",
-        "phones": [
-            "2345678901",
-            "0987654312"
         ],
         "birthday": null,
         "email": null,

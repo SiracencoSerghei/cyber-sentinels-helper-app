@@ -6,21 +6,14 @@
             "Beer Amaretto Capricciosa"
         ]
     },
-    "Holiday-winter": {
-        "title": "Holiday-winter",
+    "Tools": {
+        "title": "Tools",
         "notes": [
-            "ski, ticket_to_theater christmas-tree"
+            "Weel, battery, filter"
         ]
     },
-    "Tool": {
-        "title": "Tool",
-        "notes": [
-            "Weel, battery, filter",
-            "nails"
-        ]
-    },
-    "Gra": {
-        "title": "Gra",
+    "Grande": {
+        "title": "Grande",
         "notes": [
             "Bread Salt Coffee Wine Chips Cheese",
             "Beer Amaretto Capricciosa"
