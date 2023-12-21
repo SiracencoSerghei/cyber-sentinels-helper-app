@@ -89,8 +89,8 @@ class Notes(UserDict):
                     new_title = input('Enter new title: ')
                     # record.change_title(new_title)
                     record.title = new_title
-                    print(self.data.keys())
-                    print(record.title)
+                    self.data[new_title] = self.data.pop(value)
+                    print(record)
             self.save_to_file_notes('outputs/notes.json')
                     # del self.data[value]
 
