@@ -184,7 +184,7 @@ class ToDoBook(UserDict):
             search_by_date1 = str(task.begin).find(delete_info)
             search_by_date2 = str(task.end).find(delete_info)
             search_by_status = task.status.lower().find(delete_info)
-            search_by_tags = str([tag.value.lower() for tag in task.tags]).find(delete_info)
+            search_by_tags = str([tag.lower() for tag in task.tags]).find(delete_info)
             if search_by_task > -1 or search_by_date1 > -1 or search_by_date2 > -1 or search_by_status > -1 or search_by_tags > -1:
                 result_list.append(task)
         dict_with_number = dict(zip([i + 1 for i in range(len(result_list))], [i.task for i in result_list]))
@@ -193,6 +193,7 @@ class ToDoBook(UserDict):
         for key, value in dict_with_number.items():
             if key == delete_i:
                 del self.data[value]
+        self.save_to_file_todo('outputs/todo.json')
 
     def convert_to_serializable_todo(todobook):
         serializable_data = {}

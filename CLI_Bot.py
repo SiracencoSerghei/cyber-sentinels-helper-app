@@ -35,7 +35,7 @@ class Bot:
     def __init__(self):
         self.__known_commands = (
             "help", "add-contact", "add-note", "add-todo", "edit-contact", "edit-note", "edit-todo",
-            "find_all_in_contacts", "delete-note", "show-contact", "show-notes", "show-todos", "hello",
+            "find_all_in_contacts", "delete-note", "delete-todo", "show-contact", "show-notes", "show-todos", "hello",
             "days-to-birthday", "file-manager")
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
@@ -265,6 +265,9 @@ class Bot:
                             
                     case 'delete-note':
                         self.notesbook.delete_note()
+
+                    case 'delete-todo':
+                        self.todobook.delete_task()
                     
 
                     # case "delete_contact":
