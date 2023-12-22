@@ -34,8 +34,8 @@ class Bot:
     # noinspection PyTypeChecker
     def __init__(self):
         self.__known_commands = (
-            "help", "add-contact", "add-note", "add-todo", "edit-contact", "edit-note", "edit-todo",
-            "find_all_in_contacts", "delete-contact", "delete-note", "delete-todo", "show-contact", "show-notes", "show-todos", "hello",
+            "help", "add-contact", "add-note", "add-todo", 'add-tag', "edit-contact", "edit-note", "edit-todo",
+            "find_all_in_contacts", "delete-contact", "delete-note", "delete-todo", 'delete-tag-in-todo', "show-contact", "show-notes", "show-todos", "hello",
             "days-to-birthday", "file-manager")
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
@@ -233,6 +233,9 @@ class Bot:
                         else:
                             print("Invalid input. Usage: add-todo <title> <begin date> <end date> <status> <tags> ...")
 
+                    case 'add-tag':
+                        self.todobook.add_tag()
+
                     case 'edit-contact':
                         edit_contact(self.book)
 
@@ -250,6 +253,9 @@ class Bot:
 
                     case 'delete-todo':
                         self.todobook.delete_task()
+
+                    case 'delete-tag-in-todo':
+                        self.todobook.delete_tag_in_todo()
 
                     case "days-to-birthday":
                         if len(input_data) < 2:
