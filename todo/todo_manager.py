@@ -129,23 +129,27 @@ class ToDoBook(UserDict):
         self.data[record.task] = record
         return self.data
 
-    # I think "self.data[record.task] = record" will be correct
+    def search_todo(self):
+        try:
+            search_info = input("Enter info for search: ").lower()
+            result_list = []
+            for task in self.data.values():
+                search_by_task = task.task.lower().find(search_info)
+                search_by_date1 = str(task.begin).find(search_info)
+                search_by_date2 = str(task.end).find(search_info)
+                search_by_status = task.status.lower().find(search_info)
+                search_by_tags = str([tag.lower() for tag in task.tags]).find(search_info)
+                if search_by_task > -1 or search_by_date1 > -1 or search_by_date2 > -1 or search_by_status > -1 or search_by_tags > -1:
+                    result_list.append(task)
+            dict_with_number = dict(zip([i + 1 for i in range(len(result_list))], [i.task for i in result_list]))
+            print(dict_with_number)
+            return dict_with_number
+        except ValueError:
+                print("Invalid input. Please enter a valid info for search.")
 
     def edit_todo(self):
-        search_info = input("Enter info for search: ").lower()
-        result_list = []
-        for task in self.data.values():
-            search_by_task = task.task.lower().find(search_info)
-            search_by_date1 = str(task.begin).find(search_info)
-            search_by_date2 = str(task.end).find(search_info)
-            search_by_status = task.status.lower().find(search_info)
-            search_by_tags = str([tag.lower() for tag in task.tags]).find(search_info)
-            if search_by_task > -1 or search_by_date1 > -1 or search_by_date2 > -1 or search_by_status > -1 or search_by_tags > -1:
-                result_list.append(task)
-        dict_with_number = dict(zip([i + 1 for i in range(len(result_list))], [i.task for i in result_list]))
-        print(dict_with_number)
-
         try:
+            dict_with_number = self.search_todo()
             choice = int(input('Please choose task number to edit: '))
             for key, value in dict_with_number.items():
                 if key == choice:
@@ -177,23 +181,49 @@ class ToDoBook(UserDict):
                 print("Invalid input. Please enter a valid number.")
 
     def delete_task(self):
-        delete_info = input("Enter info for delete: ").lower()
-        result_list = []
-        for task in self.data.values():
-            search_by_task = task.task.lower().find(delete_info)
-            search_by_date1 = str(task.begin).find(delete_info)
-            search_by_date2 = str(task.end).find(delete_info)
-            search_by_status = task.status.lower().find(delete_info)
-            search_by_tags = str([tag.lower() for tag in task.tags]).find(delete_info)
-            if search_by_task > -1 or search_by_date1 > -1 or search_by_date2 > -1 or search_by_status > -1 or search_by_tags > -1:
-                result_list.append(task)
-        dict_with_number = dict(zip([i + 1 for i in range(len(result_list))], [i.task for i in result_list]))
-        print(dict_with_number)
-        delete_i = int(input("Please choose task number: "))
-        for key, value in dict_with_number.items():
-            if key == delete_i:
-                del self.data[value]
-        self.save_to_file_todo('outputs/todo.json')
+        try:
+            dict_with_number = self.search_todo()
+            delete_i = int(input("Please choose task number: "))
+            for key, value in dict_with_number.items():
+                if key == delete_i:
+                    del self.data[value]
+            self.save_to_file_todo('outputs/todo.json')
+        except ValueError:
+                print("Invalid input. Please enter a valid info for delete.")
+
+    def delete_tag_in_todo(self):
+        try:
+            dict_with_number = self.search_todo()
+            task_for_tag = int(input("Please choose task number: "))
+            tag_to_delete = input("Please enter tag to delete: ")
+            for key, value in dict_with_number.items():
+                if key == task_for_tag:
+                    delete_tag = self.data[value]
+                    for tag in delete_tag.tags:
+                        if tag == tag_to_delete:
+                            confirmation = input(f"Do you really want to delete {tag_to_delete} (y/n)? ")
+                            if confirmation == 'y':
+                                delete_tag.tags.remove(tag_to_delete)
+                                print("Delete is complete successfully")
+                            else:
+                                continue
+            self.save_to_file_todo('outputs/todo.json')
+        except ValueError:
+            print("Invalid input. Please enter a valid info for delete.")
+
+    def add_tag(self):
+        try:
+            dict_with_number = self.search_todo()
+            task_for_tag = int(input("Please choose task number: "))
+            tag_to_add = input("Please enter tag to add: ")
+            for key, value in dict_with_number.items():
+                if key == task_for_tag:
+                    add_tag = self.data[value]
+                    add_tag.tags.append(tag_to_add)
+                    print("Tag has been successfully add")
+            self.save_to_file_todo('outputs/todo.json')
+        except ValueError:
+            print("Invalid input. Please enter a valid info for delete.")
 
     def convert_to_serializable_todo(todobook):
         serializable_data = {}
