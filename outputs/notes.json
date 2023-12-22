@@ -1,17 +1,4 @@
 {
-    "Go_to_shopping1": {
-        "title": "Go_to_shopping1",
-        "notes": [
-            "Bread Salt Coffee Wine Chips Cheese",
-            "Beer Amaretto Capricciosa"
-        ]
-    },
-    "Tools": {
-        "title": "Tools",
-        "notes": [
-            "Weel, battery, filter"
-        ]
-    },
     "Grande": {
         "title": "Grande",
         "notes": [
@@ -19,28 +6,20 @@
             "Beer Amaretto Capricciosa"
         ]
     },
-    "FDS": {
-        "title": "FDS",
+    "make_a_plan": {
+        "title": "make_a_plan",
         "notes": [
-            "YFYTF",
-            "iuygiuy",
-            "iygyg"
+            "Berlin",
+            "Parish"
         ]
     },
-    "ZEZRZ": {
-        "title": "ZEZRZ",
+    "Visit_mother": {
+        "title": "Visit_mother",
         "notes": [
-            "zkdjfhlkjefh",
-            "zkejhazkjhf",
-            "akiheifh"
-        ]
-    },
-    "ZERATY": {
-        "title": "ZERATY",
-        "notes": [
-            "AZERTYTFD",
-            "ljhihigu",
-            "JYGFFRTDYFDT"
+            "Flowers",
+            "cake",
+            "vitamin 50+",
+            "make_a_surprise"
         ]
     }
 }

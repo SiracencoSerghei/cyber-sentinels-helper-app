@@ -69,7 +69,7 @@ class AddressBook(UserDict):
             choice = int(input("Enter the number of the contact to edit: "))
             if 1 <= choice <= len(matching_records):
                 selected_record = matching_records[choice - 1]
-                field_name = input("Enter the field to edit (name, birthday, email, status, note, phone): ")
+                field_name = input("Enter the field to edit (name, birthday, email, status, note, phone, address): ")
 
                 # Check if the entered field name is valid
                 if field_name == "name":
@@ -96,6 +96,10 @@ class AddressBook(UserDict):
                     old_phone = input("Enter the old phone: ")
                     new_phone = input("Enter the new phone: ")
                     selected_record.edit_phone(old_phone, new_phone)
+                    print(f"Contact '{selected_record.name.value}' updated successfully.")
+                elif field_name == "address":
+                    new_value = input("Enter the new address: ")
+                    selected_record.edit_address(new_value)
                     print(f"Contact '{selected_record.name.value}' updated successfully.")
                 else:
                     print("Invalid field name. Please enter a valid field name.")
