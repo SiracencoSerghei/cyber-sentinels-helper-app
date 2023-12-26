@@ -16,7 +16,6 @@ from utils.notes_utils import load_notes_from_file, add_note_record_to_notes, sh
 from utils.todo_utils import load_todo_from_file, add_todo_record_to_file, show_todo
 from utils.edit_helper import edit_contact, edit_notes, edit_todo_list
 
-
 # I'm applying the decorator directly, overwriting the function
 sanitize_phone_number = input_errors(sanitize_phone_number)
 
@@ -35,7 +34,8 @@ class Bot:
     def __init__(self):
         self.__known_commands = (
             "help", "add-contact", "add-note", "add-todo", 'add-tag', "edit-contact", "edit-note", "edit-todo",
-            "find_all_in_contacts", "delete-contact", "delete-note", "delete-todo", 'delete-tag-in-todo', "show-contact", "show-notes", "show-todos", "hello",
+            "find_all_in_contacts", "delete-contact", "delete-note", "delete-todo", 'delete-tag-in-todo',
+            "show-contact", "show-notes", "show-todos", "hello",
             "days-to-birthday", "file-manager")
         self.__exit_commands = ("goodbye", "close", "exit", ".")
         self.book = load_address_book()
@@ -51,7 +51,7 @@ class Bot:
         return WordCompleter(self.__known_commands + self.__exit_commands)
 
     @input_errors
-    def showall(self, chunk_size = None):
+    def showall(self, chunk_size=None):
         """Display all contacts in the address book.
 
         Returns:
@@ -102,7 +102,6 @@ class Bot:
 
         console.print(table)
 
-
     @input_errors
     def get_phone(self, name):
         """Retrieve the phone numbers associated with a contact.
@@ -145,7 +144,6 @@ class Bot:
                 return f"{GREEN}{name}'s birthday is in {-days} days{RESET}"
         else:
             return f"{RED}{name} has no birthday set{RESET}"
-
 
     def run(self):
         """Main function for user interaction.
@@ -219,7 +217,8 @@ class Bot:
                         try:
                             print(add_contact(self.book, input_data[1], input_data[2:]))
                         except IndexError:
-                            print(f"{RED}You have to put name(or name-surname) and phone(s) after add-contact. Example: \n"
+                            print(f"{RED}You have to put name(or name-surname) and phone(s) after add-contact. "
+                                  f"Example: \n"
                                   f"add-contact <name> <phone1> <phone2> ...{RESET}")
                     case 'add-note':
                         if len(input_data) >= 2:
@@ -229,7 +228,8 @@ class Bot:
 
                     case 'add-todo':
                         if len(input_data) >= 6:
-                            print(add_todo_record_to_file(self.todobook, input_data[1], input_data[2], input_data[3], input_data[4], input_data[5:]))
+                            print(add_todo_record_to_file(self.todobook, input_data[1], input_data[2], input_data[3],
+                                                          input_data[4], input_data[5:]))
                         else:
                             print("Invalid input. Usage: add-todo <title> <begin date> <end date> <status> <tags> ...")
 
@@ -244,10 +244,10 @@ class Bot:
 
                     case 'edit-todo':
                         edit_todo_list(self.todobook)
-                            
+
                     case 'delete-contact':
                         self.book.delete_contact()
-                    
+
                     case 'delete-note':
                         self.notesbook.delete_note()
 
@@ -269,4 +269,3 @@ class Bot:
 
             else:
                 print(f"{RED}Don't know this command{RESET}")
-
