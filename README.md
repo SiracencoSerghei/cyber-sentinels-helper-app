@@ -36,10 +36,11 @@ Additionally, the project implements functionality for navigating through the fo
 
 ## Installation
 
-Installation is done using `setuptools`. Project dependencies are listed in the `requirements.txt` file. They can be installed using the command:
+Installation is done using `poetry`. They can be installed using the command:
 
 ```bash
-pip install -r requirements.txt
+pip install cyber-sentinels-helper-app
+
 
 ## Usage
 
