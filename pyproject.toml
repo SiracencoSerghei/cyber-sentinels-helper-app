@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "coursework command project"
 authors = ["siracencoserghei <siracencoserghei@gmail.com>"]
 readme = "README.md"
-packages = [{include = "cyber_sentinels_helper_app"}]
+packages = [{include = "cyber-sentinels-helper-app"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.11"
