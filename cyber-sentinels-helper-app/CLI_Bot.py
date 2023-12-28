@@ -1,3 +1,5 @@
+from abc import ABC, abstractmethod
+
 import os
 from contacts.classes.AddressBook import AddressBook
 from notes.note_manager import Notes
@@ -28,6 +30,11 @@ RESET = "\033[0m"
 
 
 #  ================================
+
+class AbstractBot(ABC):
+    @abstractmethod
+    def run(self):
+        pass
 
 class Bot:
     # noinspection PyTypeChecker
