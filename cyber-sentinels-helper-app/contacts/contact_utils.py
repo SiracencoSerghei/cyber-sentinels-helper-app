@@ -1,19 +1,11 @@
-from contacts.classes.Name import Name
-from contacts.classes.Email import Email
-from contacts.classes.Address import Address
-from contacts.classes.Note import Note
-from contacts.classes.Status import Status
-from decorators.input_errors import input_errors
+from Name import Name
+from Email import Email
+from Address import Address
+from Note import Note
+from Status import Status
+from input_errors import input_errors
 
-@input_errors
-def edit_name(record, new_value):
-    """Редагує ім'я контакту.
 
-    Args:
-        record (Record): Об'єкт класу Record.
-        new_value (str): Нове ім'я контакту.
-    """
-    record.name = Name(new_value)
 
 @input_errors
 def add_email(record, value):

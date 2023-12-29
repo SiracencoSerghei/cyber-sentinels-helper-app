@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from CLI_Bot import Bot
+from Bot import Bot
 bot = Bot()
 run = bot.run()
 

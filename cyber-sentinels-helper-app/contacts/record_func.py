@@ -1,7 +1,7 @@
 from datetime import datetime
-from contacts.classes.Birthday import Birthday
-from contacts.classes.Phone import Phone
-from decorators.input_errors import input_errors
+from Birthday import Birthday
+from Phone import Phone
+from input_errors import input_errors
 
 @input_errors
 def days_to_birthday(birthday):

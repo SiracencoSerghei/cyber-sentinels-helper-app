@@ -1,4 +1,4 @@
-from contacts.classes.Field import Field
+from Field import Field
 
 
 class Name(Field):
@@ -13,4 +13,15 @@ class Name(Field):
     def is_valid_name(value):
         """return boolean from check"""
         return len(value.strip()) > 0
+
+    def __get__(self, instance, owner):
+        return self.value
+
+
+    def __set__(self, instance, new_value):
+        print(new_value)
+        if not self.is_valid_name(new_value):
+            raise ValueError("Name must be at least one character long")
+        self.value = new_value
+
     

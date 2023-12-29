@@ -1,5 +1,5 @@
-
-class Field:
+from abc import ABC, abstractmethod
+class Field(ABC):
     """Initialize a new Field instance with the given value.
 
         Args:
@@ -20,7 +20,7 @@ class Field:
                 """
         return str(self.value)
 
-    
+    @abstractmethod
     def __get__(self, instance, owner):
         """Get the current value stored in the field.
 
@@ -29,7 +29,7 @@ class Field:
                 """
         return self.value
 
-    
+    @abstractmethod
     def __set__(self, instance, new_value):
         """Set a new value in the field.
 

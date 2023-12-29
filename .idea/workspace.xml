@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f8f6945e-a225-422f-8c33-79c40d129f5d" name="Changes" comment="add abstract method" />
+    <list default="true" id="f8f6945e-a225-422f-8c33-79c40d129f5d" name="Changes" comment="add abstract method">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,24 +47,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.CLI_Bot.executor&quot;: &quot;Run&quot;,
-    &quot;Python.__main__.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/sergio/Desktop/cyber-sentinels-helper-app&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python tests.Python tests in Record.py.executor": "Run",
+    "Python.Address.executor": "Run",
+    "Python.AddressBook.executor": "Run",
+    "Python.Birthday.executor": "Run",
+    "Python.CLI_Bot.executor": "Run",
+    "Python.Email.executor": "Run",
+    "Python.Name.executor": "Run",
+    "Python.Note.executor": "Run",
+    "Python.Phone.executor": "Run",
+    "Python.Record.executor": "Run",
+    "Python.Status.executor": "Run",
+    "Python.__main__.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/home/sergio/Desktop/cyber-sentinels-helper-app",
+    "settings.editor.selected.configurable": "reference.settings.project.statistic.project.settings"
   }
-}</component>
-  <component name="QodanaReportsService">
-    <option name="descriptions">
-      <ReportDescription localRun="true" path="/tmp/qodana_output/qodana.sarif.json" reportGuid="778762a9-4960-492c-a85f-77656bd75993" reportId="cyber-sentinels-helper-app/qodana/2023-12-26" />
-    </option>
-  </component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts" />
       <recent name="$PROJECT_DIR$/setup" />
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -118,6 +126,17 @@
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="readme" />
