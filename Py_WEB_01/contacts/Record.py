@@ -1,19 +1,15 @@
 import unittest
 from datetime import datetime
 
-from Name import Name
-from Phone import Phone
-from Birthday import Birthday
-from Email import Email
-from Address import Address
-from Status import Status
-from Note import Note
-from record_func import days_to_birthday, add_birthday, edit_birthday
-from record_func import add_phone, remove_phone, edit_phone
-from record_func import find_phone, get_all_phones
-from contact_utils import add_email, edit_email, add_address, edit_address
-from contact_utils import add_note, edit_note, add_status, edit_status
-from input_errors import input_errors
+from contacts.Name import Name
+from contacts.Phone import Phone
+from contacts.Birthday import Birthday
+from contacts.Email import Email
+from contacts.Address import Address
+from contacts.Status import Status
+from contacts.Note import Note
+from decorators.input_errors import input_errors
+
 
 
 class Record:
@@ -55,7 +51,7 @@ class Record:
         return self.birthday.days_to_birthday(self.birthday)
 
 
-    def add_phone(record, phone):
+    def add_phone(self, phone):
         """Додає телефонний номер контакту.
 
         Args:
@@ -64,21 +60,21 @@ class Record:
         """
         if not isinstance(phone, Phone):
             phone = Phone(phone)
-        record.phones.append(phone)
+        self.phones.append(phone)
 
     @input_errors
-    def remove_phone(record, phone):
+    def remove_phone(self, phone):
         """Видаляє телефонний номер контакту.
 
         Args:
             record (Record): Об'єкт класу Record.
             phone (str): Телефонний номер для видалення.
         """
-        if phone in [p.value for p in record.phones]:
-            record.phones = [p for p in record.phones if p.value != phone]
+        if phone in [p.value for p in self.phones]:
+            self.phones = [p for p in self.phones if p.value != phone]
 
     @input_errors
-    def edit_phone(record, old_phone, new_phone):
+    def edit_phone(self, old_phone, new_phone):
         """Редагує існуючий телефонний номер контакту.
 
         Args:
@@ -90,15 +86,15 @@ class Record:
             ValueError: Якщо старий телефонний номер не знайдено.
         """
         is_found_old_phone = False
-        for i, p in enumerate(record.phones):
+        for i, p in enumerate(self.phones):
             if p.value == old_phone:
-                record.phones[i] = Phone(new_phone)
+                self.phones[i] = Phone(new_phone)
                 is_found_old_phone = True
         if not is_found_old_phone:
             raise ValueError('Phone not found')
 
     @input_errors
-    def find_phone(record, phone):
+    def find_phone(self, phone):
         """Знаходить телефонний номер контакту за значенням номера.
 
         Args:
@@ -108,12 +104,12 @@ class Record:
         Returns:
             Phone or None: Знайдений телефоний номер або None, якщо не знайдено.
         """
-        for p in record.phones:
+        for p in self.phones:
             if p.value == phone:
                 return p
 
     @input_errors
-    def get_all_phones(record):
+    def get_all_phones(self):
         """Повертає список всіх телефонних номерів контакту.
 
         Args:
@@ -122,7 +118,7 @@ class Record:
         Returns:
             list of str: Список телефонних номерів контакту.
         """
-        result = [p.value for p in record.phones]
+        result = [p.value for p in self.phones]
         return result
 
 
@@ -146,3 +142,11 @@ if __name__ == '__main__':
     print("+++++++++++++++++")
     record.edit_name("Joanne")
     print(record)
+
+    record.add_phone("1234567890")
+    print(record.get_all_phones())
+    
+    record.edit_phone("1234567890", "0987654321")
+    print(record.get_all_phones())
+    
+    

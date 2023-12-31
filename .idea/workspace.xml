@@ -5,7 +5,57 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f8f6945e-a225-422f-8c33-79c40d129f5d" name="Changes" comment="add abstract method">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/Bot.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/__main__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/Address.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/AddressBook.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/Birthday.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/Email.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/Field.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/Name.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/Note.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/Phone.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/Record.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/Status.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/address_book_functions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/contact_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/input_errors.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts/record_func.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/decorators/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/decorators/input_errors.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/doc/cyber-sentinels.drawio" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/doc/cyber-sentinels.drawio.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/doc/cyber-sentinels.drawio.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/doc/cyber-sentinels.drawio.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/file_manager/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/file_manager/normalize.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/file_manager/norton_commander.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/file_manager/process_directory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/file_manager/process_file.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/file_manager/sort_dir.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/notes/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/notes/note_manager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/outputs/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/outputs/address_book.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/outputs/address_book.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/outputs/history.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/outputs/notes.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/outputs/todo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/setup/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/todo/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/todo/todo_manager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/utils/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/utils/help.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/utils/notes_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cyber-sentinels-helper-app/utils/todo_utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/cyber_sentinels_helper_app-0.1.0-py3-none-any.whl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/cyber_sentinels_helper_app-0.1.0.tar.gz" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,18 +104,21 @@
     "Python.AddressBook.executor": "Run",
     "Python.Birthday.executor": "Run",
     "Python.CLI_Bot.executor": "Run",
+    "Python.ContactBot.executor": "Run",
     "Python.Email.executor": "Run",
     "Python.Name.executor": "Run",
     "Python.Note.executor": "Run",
     "Python.Phone.executor": "Run",
     "Python.Record.executor": "Run",
+    "Python.Show.executor": "Run",
+    "Python.ShowInfo.executor": "Run",
     "Python.Status.executor": "Run",
     "Python.__main__.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/sergio/Desktop/cyber-sentinels-helper-app",
-    "settings.editor.selected.configurable": "reference.settings.project.statistic.project.settings"
+    "last_opened_file_path": "/home/sergio/Desktop/Py_WEB_01",
+    "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
   <component name="RecentsManager">

@@ -1,5 +1,5 @@
-from Field import Field
-
+# from Field import Field
+from contacts.Field import Field
 class Phone(Field):
     """Class for validating and sanitizing phone numbers."""
 
@@ -45,7 +45,10 @@ class Phone(Field):
 
     def __get__(self):
         return self.value
+    
+    def __str__(self):
+        return self.value
 
 if __name__ == '__main__':
     phone = Phone("+1 (555) 123-45-67-12")
-    print(phone.value)
+    print(phone)

@@ -1,4 +1,4 @@
-from Field import Field
+from contacts.Field import Field
 
 class Note(Field):
     """class for validate note field"""

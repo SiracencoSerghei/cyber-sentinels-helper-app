@@ -1,5 +1,5 @@
 from datetime import datetime
-from Field import Field
+from contacts.Field import Field
 
 R = "\033[91m"
 RES = "\033[0m"
