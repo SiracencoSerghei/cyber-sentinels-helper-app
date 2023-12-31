@@ -1,19 +1,15 @@
 import unittest
 from datetime import datetime
 
-from Name import Name
-from Phone import Phone
-from Birthday import Birthday
-from Email import Email
-from Address import Address
-from Status import Status
-from Note import Note
-from record_func import days_to_birthday, add_birthday, edit_birthday
-from record_func import add_phone, remove_phone, edit_phone
-from record_func import find_phone, get_all_phones
-from contact_utils import add_email, edit_email, add_address, edit_address
-from contact_utils import add_note, edit_note, add_status, edit_status
-from input_errors import input_errors
+from contacts.Name import Name
+from contacts.Phone import Phone
+from contacts.Birthday import Birthday
+from contacts.Email import Email
+from contacts.Address import Address
+from contacts.Status import Status
+from contacts.Note import Note
+from decorators.input_errors import input_errors
+
 
 
 class Record:

@@ -1,4 +1,4 @@
-from Field import Field
+from contacts.Field import Field
 
 class Address(Field):
     """Class for validating and storing addresses."""

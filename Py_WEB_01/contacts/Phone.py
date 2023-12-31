@@ -1,5 +1,5 @@
-from Field import Field
-
+# from Field import Field
+from contacts.Field import Field
 class Phone(Field):
     """Class for validating and sanitizing phone numbers."""
 

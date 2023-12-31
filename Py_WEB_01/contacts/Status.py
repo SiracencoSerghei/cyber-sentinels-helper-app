@@ -1,4 +1,4 @@
-from Field import Field
+from contacts.Field import Field
 
 class Status(Field):
     """A class representing the status of a Record in Address Book."""
