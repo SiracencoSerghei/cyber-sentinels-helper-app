@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f8f6945e-a225-422f-8c33-79c40d129f5d" name="Changes" comment="add abstract method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,27 +48,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python tests.Python tests in Record.py.executor": "Run",
-    "Python.Address.executor": "Run",
-    "Python.AddressBook.executor": "Run",
-    "Python.Birthday.executor": "Run",
-    "Python.CLI_Bot.executor": "Run",
-    "Python.Email.executor": "Run",
-    "Python.Name.executor": "Run",
-    "Python.Note.executor": "Run",
-    "Python.Phone.executor": "Run",
-    "Python.Record.executor": "Run",
-    "Python.Status.executor": "Run",
-    "Python.__main__.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/sergio/Desktop/cyber-sentinels-helper-app",
-    "settings.editor.selected.configurable": "reference.settings.project.statistic.project.settings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests in Record.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Address.executor&quot;: &quot;Run&quot;,
+    &quot;Python.AddressBook.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Birthday.executor&quot;: &quot;Run&quot;,
+    &quot;Python.CLI_Bot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Email.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Name.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Note.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Phone.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Record.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Show.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ShowInfo.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Status.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__main__.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/sergio/Desktop/cyber-sentinels-helper-app&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/cyber-sentinels-helper-app/contacts" />
