@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "cyber-sentinels-helper-app"
+name = "Py_WEB_01"
 version = "0.1.0"
 description = "coursework command project"
 authors = ["siracencoserghei <siracencoserghei@gmail.com>"]
 readme = "README.md"
-packages = [{include = "cyber-sentinels-helper-app"}]
+packages = [{include = "Py_WEB_01"}]
 
 
 [tool.poetry.dependencies]
